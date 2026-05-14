@@ -1,5 +1,6 @@
 package Reentry.first.Entity;
 
+import Reentry.first.DTO.WorkgroupDTO.RequestWorkGroupDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,7 +17,7 @@ public class WorkGroup {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     private String name;
 
@@ -24,6 +25,12 @@ public class WorkGroup {
     @ManyToOne
     @JoinColumn(name = "manager_id")
     private Manager manager;
+
+    public WorkGroup (RequestWorkGroupDTO dto){
+        this.id = null;
+        this.name = dto.getName();
+        this.manager = dto.getManager();
+    }
 
 
 

@@ -1,4 +1,4 @@
-package Reentry.first.DTO;
+package Reentry.first.DTO.ManagerDTO;
 
 import Reentry.first.Entity.WorkGroup;
 import lombok.Getter;

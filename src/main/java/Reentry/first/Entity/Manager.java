@@ -1,5 +1,6 @@
 package Reentry.first.Entity;
 
+import Reentry.first.DTO.ManagerDTO.RequestManagerDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,14 +16,25 @@ import java.util.List;
 @Entity
 public class Manager {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     private String name;
 
     @OneToMany(mappedBy = "manager")
     private List<WorkGroup> workGroupList;
+
+
+
+
+    public Manager (RequestManagerDTO requestManagerDTO){
+            this.id = null;
+            this.name = requestManagerDTO.getName();
+            this.workGroupList = requestManagerDTO.getWorkGroupList();
+    }
+
 
 
 }
