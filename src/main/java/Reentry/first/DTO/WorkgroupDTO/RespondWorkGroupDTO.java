@@ -7,17 +7,17 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class WorkgroupRespondDTO {
+public class RespondWorkGroupDTO {
 
 
     private Long id;
     private String name;
-    private Manager manager;
+    private String managerName;
 
-    public WorkgroupRespondDTO (WorkGroup workGroup){
+    public RespondWorkGroupDTO(WorkGroup workGroup){
         this.id = workGroup.getId();
         this.name = workGroup.getName();
-        this.manager = workGroup.getManager();
+        this.managerName = workGroup.getManager().getName();
     }
 
 

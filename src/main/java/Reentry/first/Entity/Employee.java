@@ -1,13 +1,13 @@
 package Reentry.first.Entity;
 
-import Reentry.first.DTO.WorkgroupDTO.RequestWorkGroupDTO;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+
 
 
 @NoArgsConstructor
@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-public class WorkGroup {
+public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,22 +23,29 @@ public class WorkGroup {
 
     private String name;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "manager_id")
-    private Manager manager;
-
-
-    @OneToMany(mappedBy = "workGroup")
-    List<Employee> employeeList;
+    @JoinColumn(name = "workGroup_id")
+    private WorkGroup workGroup;
 
 
 
 
-    public WorkGroup (RequestWorkGroupDTO dto){
-        this.id = null;
-        this.name = dto.getName();
+
+    @Enumerated(EnumType.STRING)
+    private Language language;
+
+    public enum Language {
+        Turkish,
+        Polish,
+        Russian,
+        Arabic,
+        Spanish,
+        French
     }
+
+
+
+
 
 
 

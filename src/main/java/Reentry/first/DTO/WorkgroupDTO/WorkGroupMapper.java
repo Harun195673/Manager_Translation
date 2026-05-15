@@ -1,8 +1,5 @@
 package Reentry.first.DTO.WorkgroupDTO;
 
-import Reentry.first.DTO.ManagerDTO.RequestManagerDTO;
-import Reentry.first.DTO.ManagerDTO.RespondManagerDTO;
-import Reentry.first.Entity.Manager;
 import Reentry.first.Entity.WorkGroup;
 import org.springframework.stereotype.Component;
 
@@ -18,18 +15,18 @@ public class WorkGroupMapper {
         return workGroup;
     }
 
-    public WorkgroupRespondDTO toRespondDTO (WorkGroup workGroup){
-        WorkgroupRespondDTO respondDTO = new WorkgroupRespondDTO(workGroup);
+    public RespondWorkGroupDTO toRespondDTO (WorkGroup workGroup){
+        RespondWorkGroupDTO respondDTO = new RespondWorkGroupDTO(workGroup);
         return respondDTO;
     }
 
-    public List<WorkgroupRespondDTO> requestWorkgroupRespondDTOList (List<WorkGroup> workGroupList){
+    public List<RespondWorkGroupDTO> requestWorkgroupRespondDTOList (List<WorkGroup> workGroupList){
 
-        List<WorkgroupRespondDTO> workgroupRespondDTOList = new ArrayList<>();
+        List<RespondWorkGroupDTO> respondWorkGroupDTOList = new ArrayList<>();
         for (WorkGroup workGroup: workGroupList){
-            workgroupRespondDTOList.add(this.toRespondDTO(workGroup));
+            respondWorkGroupDTOList.add(this.toRespondDTO(workGroup));
         }
-        return workgroupRespondDTOList;
+        return respondWorkGroupDTOList;
     }
 
 

@@ -20,7 +20,7 @@ public class ManagerMapper {
             return dto;
     }
 
-    public List<RespondManagerDTO> requestManagerDTOList (List<Manager> managerList){
+    public List<RespondManagerDTO> respondManagerDTOList (List<Manager> managerList){
 
         List<RespondManagerDTO> respondManagerDTOList = new ArrayList<>();
         for (Manager manager: managerList){

@@ -10,5 +10,5 @@ public class RequestWorkGroupDTO {
 
 
     private String name;
-    private Manager manager;
+    private Long managerId;
 }

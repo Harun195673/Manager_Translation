@@ -36,5 +36,8 @@ public class Manager {
     }
 
 
+    @OneToMany(mappedBy = "manager")
+    List<Task> taskList;
+
 
 }
