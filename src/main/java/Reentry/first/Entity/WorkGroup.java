@@ -29,7 +29,7 @@ public class WorkGroup {
     private Manager manager;
 
 
-    @OneToMany(mappedBy = "workGroup")
+    @OneToMany(mappedBy = "workGroup", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Employee> employeeList;
 
 

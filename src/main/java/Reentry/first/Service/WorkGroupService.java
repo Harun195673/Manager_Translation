@@ -6,6 +6,9 @@ import Reentry.first.DTO.WorkgroupDTO.RespondWorkGroupDTO;
 import Reentry.first.DTO.WorkgroupDTO.WorkGroupMapper;
 import Reentry.first.Entity.Manager;
 import Reentry.first.Entity.WorkGroup;
+import Reentry.first.Exceptions.DuplicateResourceException;
+import Reentry.first.Exceptions.InvalidOperationException;
+import Reentry.first.Exceptions.ResourceNotFoundException;
 import Reentry.first.Repository.ManagerRepository;
 import Reentry.first.Repository.WorkGroupRepository;
 import org.springframework.stereotype.Service;
@@ -32,14 +35,16 @@ public class WorkGroupService {
     /// CREATE
     public RespondWorkGroupDTO createWorkGroup(RequestWorkGroupDTO dto) {
 
+        if (workGroupRepository.existsByName(dto.getName())){
+            throw new DuplicateResourceException("Workgroup already exists");
+        }
+
         Manager manager = managerRepository.findById(dto.getManagerId())
                 .orElseThrow(() ->
-                        new RuntimeException("Manager not found"));
+                        new ResourceNotFoundException("Manager not found"));
 
         WorkGroup workGroup = workGroupMapper.toEntity(dto);
-
         workGroup.setManager(manager);
-
         workGroupRepository.save(workGroup);
 
         return workGroupMapper.toRespondDTO(workGroup);
@@ -51,7 +56,7 @@ public class WorkGroupService {
 
         WorkGroup workGroup = workGroupRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("WorkGroup not found"));
+                        new ResourceNotFoundException("WorkGroup not found"));
 
         return workGroupMapper.toRespondDTO(workGroup);
     }
@@ -72,17 +77,24 @@ public class WorkGroupService {
     public RespondWorkGroupDTO updateWorkGroup(Long id,
                                                RequestWorkGroupDTO dto) {
 
+
+
         WorkGroup workGroup = workGroupRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("WorkGroup not found"));
+                        new ResourceNotFoundException("WorkGroup not found"));
 
         workGroup.setName(dto.getName());
+
+        if (workGroupRepository.existsByName(dto.getName())
+                && !workGroup.getName().equals(dto.getName())){
+            throw new DuplicateResourceException("Workgroup already exists");
+        }
 
         if (dto.getManagerId() != null) {
 
             Manager manager = managerRepository.findById(dto.getManagerId())
                     .orElseThrow(() ->
-                            new RuntimeException("Manager not found"));
+                            new ResourceNotFoundException("Manager not found"));
 
             workGroup.setManager(manager);
         }
@@ -98,7 +110,11 @@ public class WorkGroupService {
 
         WorkGroup workGroup = workGroupRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("WorkGroup not found"));
+                        new ResourceNotFoundException("WorkGroup not found"));
+
+        if (workGroup.getEmployeeList().size() > 0){
+            throw new InvalidOperationException("Cannot delete workGroup with employees.");
+        }
 
         workGroupRepository.delete(workGroup);
     }

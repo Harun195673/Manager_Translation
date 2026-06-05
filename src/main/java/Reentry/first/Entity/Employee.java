@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
+import java.util.List;
 
 
 @NoArgsConstructor
@@ -28,9 +28,6 @@ public class Employee {
     private WorkGroup workGroup;
 
 
-
-
-
     @Enumerated(EnumType.STRING)
     private Language language;
 
@@ -44,6 +41,8 @@ public class Employee {
     }
 
 
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    List<TaskAssignment> taskAssignmentList;
 
 
 

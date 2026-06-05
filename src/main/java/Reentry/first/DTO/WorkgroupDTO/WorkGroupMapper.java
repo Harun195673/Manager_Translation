@@ -1,9 +1,11 @@
 package Reentry.first.DTO.WorkgroupDTO;
 
+import Reentry.first.Entity.Employee;
 import Reentry.first.Entity.WorkGroup;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Component
@@ -28,6 +30,24 @@ public class WorkGroupMapper {
         }
         return respondWorkGroupDTOList;
     }
+
+
+    public HashMap<Employee.Language, List<Employee>> getEmployeeMap(List<Employee> employeeList) {
+        HashMap<Employee.Language, List<Employee>> employeeMap = new HashMap<>();
+
+        for (Employee employee : employeeList) {
+            Employee.Language lang = employee.getLanguage();
+
+            // If the map doesn’t have a list yet, create it
+            employeeMap.computeIfAbsent(lang, k -> new ArrayList<>());
+
+            // Add the employee to the list for this language
+            employeeMap.get(lang).add(employee);
+        }
+
+        return employeeMap;
+    }
+
 
 
 

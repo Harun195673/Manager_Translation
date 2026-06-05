@@ -4,6 +4,7 @@ import Reentry.first.Entity.Task;
 import Reentry.first.Entity.Manager;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +15,8 @@ public class TaskMapper {
         Task task = new Task();
         task.setTitle(dto.getTitle());
         task.setMessage(dto.getMessage());
-        task.setStatus(Task.Status.TODO);
         task.setManager(manager);
+        task.setCreatedDateTask(LocalDate.now());
         return task;
     }
 
@@ -24,8 +25,8 @@ public class TaskMapper {
         dto.setId(task.getId());
         dto.setTitle(task.getTitle());
         dto.setMessage(task.getMessage());
-        dto.setStatus(task.getStatus());
         dto.setManagerId(task.getManager() != null ? task.getManager().getId() : null);
+        dto.setCreatedDateTask(task.getCreatedDateTask());
         return dto;
     }
 
@@ -38,6 +39,25 @@ public class TaskMapper {
         }
 
         return respondTaskDTOList;
+    }
+
+
+
+
+    public Task createTranslatedTask(Task originalTask, String translatedMessage) {
+
+        Task newTask = new Task();
+
+        newTask.setManager(originalTask.getManager());
+        newTask.setTitle(originalTask.getTitle());
+        newTask.setMessage(translatedMessage);
+        newTask.setTaskAssignmentList(
+                new ArrayList<>(originalTask.getTaskAssignmentList())
+        );
+
+
+
+        return newTask;
     }
 
 

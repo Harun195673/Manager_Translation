@@ -23,20 +23,17 @@ public class Manager {
 
     private String name;
 
-    @OneToMany(mappedBy = "manager")
+    @OneToMany(mappedBy = "manager", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WorkGroup> workGroupList;
-
-
 
 
     public Manager (RequestManagerDTO requestManagerDTO){
             this.id = null;
             this.name = requestManagerDTO.getName();
-            this.workGroupList = requestManagerDTO.getWorkGroupList();
     }
 
 
-    @OneToMany(mappedBy = "manager")
+    @OneToMany(mappedBy = "manager", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Task> taskList;
 
 

@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
@@ -19,23 +22,17 @@ public class Task {
 
     private String title;
     private String message;
-
-
-    @Enumerated(EnumType.STRING)
-    private Status status;
-
-    public enum Status {
-        TODO,
-        IN_PROGRESS,
-        DONE,
-        OVERDUE
-    }
+    private LocalDate createdDateTask;
 
 
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Manager manager;
+
+
+    @OneToMany(mappedBy = "task", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    List<TaskAssignment> taskAssignmentList;
 
 
 

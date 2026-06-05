@@ -1,6 +1,7 @@
-package Reentry.first.DTO.ManagerDTO.EmployeeDTO;
+package Reentry.first.DTO.EmployeeDTO;
 
 import Reentry.first.Entity.Employee;
+import Reentry.first.Entity.WorkGroup;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -42,6 +43,22 @@ public class EmployeeMapper {
 
         return respondEmployeeDTOS;
     }
+
+
+
+    public Employee toUpdatedEmployee (Employee employee,
+                                       UpdateEmployeeDTO dto,
+                                       WorkGroup workGroup){
+
+        employee.setName(dto.getName());
+        employee.setLanguage(dto.getLanguage());
+        employee.setId(dto.getEmployeeId());
+        employee.setWorkGroup(workGroup);
+
+        return employee;
+    }
+
+    
 
 
 

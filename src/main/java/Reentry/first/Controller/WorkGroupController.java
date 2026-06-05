@@ -4,10 +4,13 @@ package Reentry.first.Controller;
 import Reentry.first.DTO.WorkgroupDTO.RequestWorkGroupDTO;
 import Reentry.first.DTO.WorkgroupDTO.RespondWorkGroupDTO;
 import Reentry.first.Service.WorkGroupService;
+import jakarta.validation.Valid;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping("/workgroups")
 public class WorkGroupController {
@@ -20,7 +23,7 @@ public class WorkGroupController {
 
     /// CREATE
     @PostMapping
-    public RespondWorkGroupDTO createWorkGroup(@RequestBody RequestWorkGroupDTO dto) {
+    public RespondWorkGroupDTO createWorkGroup(@RequestBody @Valid RequestWorkGroupDTO dto) {
         return workGroupService.createWorkGroup(dto);
     }
 
@@ -39,7 +42,7 @@ public class WorkGroupController {
     // UPDATE
     @PutMapping("/{id}")
     public RespondWorkGroupDTO updateWorkGroup(@PathVariable Long id,
-                                               @RequestBody RequestWorkGroupDTO dto) {
+                                               @Valid @RequestBody RequestWorkGroupDTO dto) {
         return workGroupService.updateWorkGroup(id, dto);
     }
 

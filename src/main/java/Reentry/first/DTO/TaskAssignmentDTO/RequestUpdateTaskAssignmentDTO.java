@@ -1,4 +1,4 @@
-package Reentry.first.DTO.TaskDTO.TaskAssignmentDTO;
+package Reentry.first.DTO.TaskAssignmentDTO;
 
 import Reentry.first.Entity.Task;
 import Reentry.first.Entity.TaskAssignment;

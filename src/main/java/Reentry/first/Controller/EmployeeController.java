@@ -2,13 +2,18 @@ package Reentry.first.Controller;
 
 import Reentry.first.DTO.EmployeeDTO.RequestEmployeeDTO;
 import Reentry.first.DTO.EmployeeDTO.RespondEmployeeDTO;
+import Reentry.first.DTO.EmployeeDTO.UpdateEmployeeDTO;
+import Reentry.first.Entity.Employee;
 import Reentry.first.Service.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
@@ -21,7 +26,7 @@ public class EmployeeController {
 
     // CREATE
     @PostMapping
-    public ResponseEntity<RespondEmployeeDTO> createEmployee(@RequestBody RequestEmployeeDTO dto) {
+    public ResponseEntity<RespondEmployeeDTO> createEmployee(@RequestBody @Valid RequestEmployeeDTO dto) {
         RespondEmployeeDTO response = employeeService.createEmployee(dto);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
@@ -40,13 +45,22 @@ public class EmployeeController {
         return ResponseEntity.ok(employees);
     }
 
-    // UPDATE
-    @PutMapping("/{id}")
-    public ResponseEntity<RespondEmployeeDTO> updateEmployee(
-            @PathVariable Long id,
-            @RequestBody RequestEmployeeDTO dto) {
+    // GET ALL
+    @GetMapping("/filter/{language}")
+    public List<RespondEmployeeDTO> filterEmployeesByStatus(@PathVariable Employee.Language language) {
+        return employeeService.getEmployeesByLanguage(language);
+    }
 
-        RespondEmployeeDTO updatedEmployee = employeeService.updateEmployee(id, dto);
+
+
+
+
+    // UPDATE
+    @PutMapping("/update")
+    public ResponseEntity<RespondEmployeeDTO> updateEmployee(
+            @RequestBody @Valid UpdateEmployeeDTO dto) {
+
+        RespondEmployeeDTO updatedEmployee = employeeService.updateEmployee(dto);
         return ResponseEntity.ok(updatedEmployee);
     }
 

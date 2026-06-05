@@ -1,4 +1,4 @@
-package Reentry.first.DTO.ManagerDTO.EmployeeDTO;
+package Reentry.first.DTO.EmployeeDTO;
 
 import Reentry.first.Entity.Employee;
 import jakarta.validation.constraints.NotBlank;
@@ -10,11 +10,11 @@ import lombok.Setter;
 @Setter
 public class RequestEmployeeDTO {
 
-    @NotNull
+    @NotNull(message = "WorkGroupId required")
     private Long workGroupId;
-    @NotBlank
+    @NotBlank(message = "name required")
     private String name;
-    @NotBlank
+    @NotBlank(message = "Language required")
     private Employee.Language language;
 
 }

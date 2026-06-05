@@ -3,10 +3,13 @@ package Reentry.first.Controller;
 import Reentry.first.DTO.TaskDTO.RequestTaskDTO;
 import Reentry.first.DTO.TaskDTO.RespondTaskDTO;
 import Reentry.first.Service.TaskService;
+import jakarta.validation.Valid;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping("/tasks")
 public class TaskController {
@@ -18,7 +21,7 @@ public class TaskController {
     }
 
     @PostMapping
-    public RespondTaskDTO createTask(@RequestBody RequestTaskDTO dto){
+    public RespondTaskDTO createTask(@RequestBody @Valid RequestTaskDTO dto){
         return taskService.createTask(dto);
     }
 
@@ -31,6 +34,14 @@ public class TaskController {
     public RespondTaskDTO getTask(@PathVariable Long id){
         return taskService.getTaskById(id);
     }
+
+    @PutMapping()
+    public RespondTaskDTO getTask(@RequestBody RequestTaskDTO requestTaskDTO){
+        return taskService.updateTask(requestTaskDTO);
+    }
+
+
+
 
     @DeleteMapping("/{id}")
     public void deleteTask(@PathVariable Long id){

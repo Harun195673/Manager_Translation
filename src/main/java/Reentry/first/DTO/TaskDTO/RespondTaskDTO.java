@@ -1,8 +1,11 @@
 package Reentry.first.DTO.TaskDTO;
 
+import Reentry.first.Entity.TaskAssignment;
 import lombok.Getter;
 import lombok.Setter;
-import Reentry.first.Entity.Task.Status;
+
+import java.time.LocalDate;
+
 
 @Getter
 @Setter
@@ -10,6 +13,6 @@ public class RespondTaskDTO {
     private Long id;
     private String title;
     private String message;
-    private Status status;
     private Long managerId;
+    private LocalDate createdDateTask;
 }
