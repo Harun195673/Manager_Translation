@@ -17,6 +17,4 @@ public class RequestTaskDTO {
     private Long managerId;
     @NotNull(message = "taskAssignmentId required")
     private Long taskAssignmentId;
-    @NotNull(message = "taskAssignmentId required")
-    private Long taskId;
 }

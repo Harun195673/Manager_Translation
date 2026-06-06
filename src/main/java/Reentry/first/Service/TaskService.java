@@ -40,8 +40,6 @@ public class TaskService {
     public RespondTaskDTO createTask(RequestTaskDTO dto){
 
 
-
-
         if (taskRepository.existsByTitleAndMessage(dto.getTitle(), dto.getMessage())){
             throw new DuplicateResourceException("Task already exists. Create a different Task");
         }
@@ -54,6 +52,9 @@ public class TaskService {
 
         return taskMapper.toRespondDTO(task);
     }
+
+
+
 
 
 
@@ -82,12 +83,11 @@ public class TaskService {
 
 
     @Transactional
-    public RespondTaskDTO updateTask(RequestTaskDTO dto) {
+    public RespondTaskDTO updateTask(RequestTaskDTO dto, Long taskId) {
 
 
 
-
-        Task task = taskRepository.findById(dto.getTaskId())
+        Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new ResourceNotFoundException("Task not found"));
 
         if (taskRepository.existsByTitleAndMessage(dto.getTitle(), dto.getMessage())

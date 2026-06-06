@@ -131,14 +131,14 @@ public class GlobalExceptionHandler {
 
         ApiError error = new ApiError(
                 ex.getMessage(),
-                HttpStatus.FORBIDDEN.value(),
-                HttpStatus.FORBIDDEN.getReasonPhrase(),
+                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.BAD_REQUEST.getReasonPhrase(),
                 request.getRequestURI(),
                 LocalDateTime.now()
         );
 
         return ResponseEntity
-                .status(HttpStatus.FORBIDDEN)
+                .status(HttpStatus.BAD_REQUEST)
                 .body(error);
     }
 
@@ -174,16 +174,6 @@ public class GlobalExceptionHandler {
 
 
 
-
-
-
-
-//    ResponseEntity = HTTP response container
-//    It contains:
-//
-//            1. Status Code (404, 400, 500...)
-//            2. Headers
-//            3. Body (your ApiError object)
 
 
 

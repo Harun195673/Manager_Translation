@@ -78,8 +78,9 @@ public class TaskAssignmentService {
 
         /// Check if task is completed
         TaskAssignment taskAssignmentFoundByTaskId = taskAssignmentRepository.findByTaskId(task.getId());
-        if (taskAssignmentFoundByTaskId.getStatus().equals("DONE")){
-            throw new InvalidOperationException("Cannot assign employee to a completed Task");
+        if (taskAssignmentFoundByTaskId != null &&
+                taskAssignmentFoundByTaskId.getStatus() == TaskAssignment.Status.DONE) {
+            throw new InvalidOperationException("Cannot assign employee to a completed task");
         }
 
         taskAssignment.setTask(task);

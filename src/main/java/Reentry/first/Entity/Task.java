@@ -27,7 +27,7 @@ public class Task {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id")
+    @JoinColumn(name = "manager_id")
     private Manager manager;
 
 

@@ -14,7 +14,7 @@ public class RequestEmployeeDTO {
     private Long workGroupId;
     @NotBlank(message = "name required")
     private String name;
-    @NotBlank(message = "Language required")
+    @NotNull(message = "Language required")
     private Employee.Language language;
 
 }

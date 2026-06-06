@@ -26,8 +26,10 @@ public class EmployeeMapper {
         dto.setEmployeeId(employee.getId());
         dto.setName(employee.getName());
         dto.setLanguage(employee.getLanguage());
-        dto.setWorkGroupId(employee.getWorkGroup().getId());
-        dto.setWorkGroupName(employee.getWorkGroup().getName());
+        if (employee.getWorkGroup() != null) {
+            dto.setWorkGroupId(employee.getWorkGroup().getId());
+            dto.setWorkGroupName(employee.getWorkGroup().getName());
+        }
 
         return dto;
     }

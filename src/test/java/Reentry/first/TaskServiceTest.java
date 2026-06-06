@@ -90,8 +90,10 @@ class TaskServiceTest {
 
     @Test
     void updateTask_shouldThrowInvalidOperationException_whenTaskIsAlreadyDone() {
+
+        Long taskId = 1L;
+
         RequestTaskDTO dto = new RequestTaskDTO();
-        dto.setTaskId(1L);
         dto.setTitle("New title");
         dto.setMessage("New message");
         dto.setManagerId(1L);
@@ -114,7 +116,7 @@ class TaskServiceTest {
         when(managerRepository.findById(1L)).thenReturn(Optional.of(manager));
 
         assertThrows(InvalidOperationException.class, () -> {
-            taskService.updateTask(dto);
+            taskService.updateTask(dto, taskId);
         });
 
         verify(taskRepository, never()).save(any());

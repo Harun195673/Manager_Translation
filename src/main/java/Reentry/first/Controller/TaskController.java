@@ -36,8 +36,9 @@ public class TaskController {
     }
 
     @PutMapping()
-    public RespondTaskDTO getTask(@RequestBody RequestTaskDTO requestTaskDTO){
-        return taskService.updateTask(requestTaskDTO);
+    public RespondTaskDTO getTask(@RequestBody RequestTaskDTO requestTaskDTO,
+                                  @PathVariable Long taskId){
+        return taskService.updateTask(requestTaskDTO, taskId);
     }
 
 
