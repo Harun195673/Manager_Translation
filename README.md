@@ -148,23 +148,7 @@ This structure separates API handling, business logic, persistence logic, and da
 
 ---
 
-## Business Logic
 
-The central business logic is the multilingual task assignment workflow.
-
-When a manager creates a task for a workgroup, the application does not simply store the task. Instead, it processes the workgroup, detects the languages spoken by employees, creates translated task versions, and assigns the correct version to each employee.
-
-This demonstrates:
-
-- Domain modeling
-- Service-layer orchestration
-- Entity relationships
-- DTO usage
-- Validation
-- Exception handling
-- Automated workflow logic
-
----
 
 ## Project Purpose
 
