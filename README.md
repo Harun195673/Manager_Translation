@@ -13,7 +13,7 @@ A Spring Boot REST API for managing multilingual workgroups, tasks, and task ass
 
 ## Overview
 
-Management Workflow API is a backend application that simulates a real-world management system for teams with employees who speak different languages.
+Management Workflow API is a Spring Boot backend application that automates task distribution for multilingual teams.
 
 Managers can create workgroups, add employees, create tasks, and automatically assign translated task versions to employees based on their language.
 
