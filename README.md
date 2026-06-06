@@ -2,6 +2,53 @@
 
 A Spring Boot REST API for managing multilingual workgroups, tasks, and task assignments.
 
+
+
+erDiagram
+    MANAGER ||--o{ WORKGROUP : manages
+    MANAGER ||--o{ TASK : creates
+    WORKGROUP ||--o{ EMPLOYEE : contains
+    EMPLOYEE ||--o{ TASK_ASSIGNMENT : receives
+    TASK ||--o{ TASK_ASSIGNMENT : assigned_through
+
+    MANAGER {
+        Long id
+        String name
+    }
+
+    WORKGROUP {
+        Long id
+        String name
+        Long manager_id
+    }
+
+    EMPLOYEE {
+        Long id
+        String name
+        Language language
+        Long workgroup_id
+    }
+
+    TASK {
+        Long id
+        String title
+        String message
+        LocalDate createdDateTask
+        Long manager_id
+    }
+
+    TASK_ASSIGNMENT {
+        Long id
+        String name
+        LocalDate deadline
+        int hoursWorked
+        Status status
+        Long employee_id
+        Long task_id
+    }
+
+
+
 ## Overview
 
 Management Workflow API is a backend application that simulates a real-world management system for teams with employees who speak different languages.
