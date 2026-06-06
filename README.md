@@ -17,7 +17,7 @@ Management Workflow API is a backend application that simulates a real-world man
 
 Managers can create workgroups, add employees, create tasks, and automatically assign translated task versions to employees based on their language.
 
-The project goes beyond basic CRUD by modeling a complete business workflow:
+Example workflow:
 
 > A manager creates one task → the system groups employees by language → translates the task → creates translated task versions → assigns them to the correct employees.
 
