@@ -4,40 +4,60 @@ A Spring Boot REST API for managing multilingual workgroups, tasks, and task ass
 
 ## Overview
 
-Management Workflow API simulates a backend system for organizations where managers work with employees who speak different languages.
+Management Workflow API is a backend application that simulates a real-world management system for teams with employees who speak different languages.
 
-A manager can create a task once, select a workgroup, and the system automatically prepares translated task assignments for employees based on their language.
+Managers can create workgroups, add employees, create tasks, and automatically assign translated task versions to employees based on their language.
 
-The project demonstrates practical backend development with Spring Boot, JPA relationships, DTOs, validation, global exception handling, scheduled jobs, and unit testing.
+The project goes beyond basic CRUD by modeling a complete business workflow:
+
+> A manager creates one task → the system groups employees by language → translates the task → creates translated task versions → assigns them to the correct employees.
+
+This project demonstrates practical backend development with Spring Boot, JPA relationships, DTOs, validation, exception handling, scheduled tasks, and unit testing.
+
+---
 
 ## Example Workflow
 
-Imagine a manager wants to send one task to a workgroup with employees who speak different languages.
+Imagine a manager needs to send one task to a workgroup that contains:
 
-Instead of manually creating separate task versions, the manager starts one workflow:
+- Turkish-speaking employees
+- Arabic-speaking employees
+- Polish-speaking employees
+- French-speaking employees
 
-1. The manager selects a task and a workgroup.
-2. The system loads all employees in that workgroup.
-3. Employees are grouped by language.
-4. The task message is translated for each language group.
-5. Translated task versions are created.
-6. Task assignments are generated for the employees.
-7. Each assignment can be tracked by deadline and status.
+Instead of manually translating the task and assigning it several times, the manager starts one workflow.
+
+The system then:
+
+1. Loads the selected workgroup.
+2. Retrieves all employees in that workgroup.
+3. Groups employees by language.
+4. Translates the task message for each language.
+5. Creates translated task versions.
+6. Creates task assignments for the employees.
+7. Tracks each assignment by deadline and status.
 
 This turns a manual multilingual assignment process into an automated backend workflow.
 
+---
+
 ## Core Features
 
-- Manager, workgroup, employee, and task management
-- Task assignment creation and tracking
+- Manager management
+- Workgroup management
+- Employee management
+- Task creation and management
+- Task assignment tracking
 - Automatic task translation workflow
 - Employee grouping by language
-- Assignment status tracking: `TODO`, `IN_PROGRESS`, `DONE`, `OVERDUE`
+- Status tracking: `TODO`, `IN_PROGRESS`, `DONE`, `OVERDUE`
 - Bean Validation for request data
 - Global exception handling
 - Scheduled overdue-task detection
 - Unit tests with JUnit and Mockito
 - Swagger/OpenAPI documentation
+
+---
 
 ## Tech Stack
 
@@ -52,9 +72,11 @@ This turns a manual multilingual assignment process into an automated backend wo
 - JUnit
 - Mockito
 
+---
+
 ## Architecture
 
-The project follows a layered backend architecture:
+The application follows a layered backend architecture:
 
 ```text
 Controller
