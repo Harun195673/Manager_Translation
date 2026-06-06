@@ -99,16 +99,11 @@ This turns a manual multilingual assignment process into an automated backend wo
 
 ## Core Features
 
-- Manager management
-- Workgroup management
-- Employee management
-- Task creation and management
-- Task assignment tracking
-- Automatic task translation workflow
+- CRUD operations for managers, workgroups, employees, tasks, and assignments
+- Automated multilingual task assignment workflow
 - Employee grouping by language
-- Status tracking: `TODO`, `IN_PROGRESS`, `DONE`, `OVERDUE`
-- Bean Validation for request data
-- Global exception handling
+- Assignment status tracking: `TODO`, `IN_PROGRESS`, `DONE`, `OVERDUE`
+- Bean Validation and global exception handling
 - Scheduled overdue-task detection
 - Unit tests with JUnit and Mockito
 - Swagger/OpenAPI documentation
