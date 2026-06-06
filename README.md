@@ -2,8 +2,13 @@
 
 A Spring Boot REST API for managing multilingual workgroups, tasks, and task assignments.
 
+# Management Workflow API
 
+A Spring Boot REST API for managing multilingual workgroups, tasks, and task assignments.
 
+## Entity Relationship Model
+
+```mermaid
 erDiagram
     MANAGER ||--o{ WORKGROUP : manages
     MANAGER ||--o{ TASK : creates
@@ -46,8 +51,7 @@ erDiagram
         Long employee_id
         Long task_id
     }
-
-
+```
 
 ## Overview
 
@@ -58,8 +62,6 @@ Managers can create workgroups, add employees, create tasks, and automatically a
 The project goes beyond basic CRUD by modeling a complete business workflow:
 
 > A manager creates one task → the system groups employees by language → translates the task → creates translated task versions → assigns them to the correct employees.
-
-This project demonstrates practical backend development with Spring Boot, JPA relationships, DTOs, validation, exception handling, scheduled tasks, and unit testing.
 
 ---
 
