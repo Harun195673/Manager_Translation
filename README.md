@@ -1,49 +1,60 @@
 # Management Workflow API
 
-A Spring Boot REST API for managing managers, workgroups, employees, tasks, and task assignments in multilingual teams.
+A Spring Boot REST API for managing multilingual workgroups, tasks, and task assignments.
 
-## Features
+## Overview
 
-* CRUD operations for Managers, WorkGroups, Employees, and Tasks
-* Task assignment tracking
-* Status management (TODO, IN_PROGRESS, DONE, OVERDUE)
-* Automated task translation workflow
-* DTO-based API design
-* Bean Validation
-* Global Exception Handling
-* Scheduled overdue-task detection
-* Unit Testing with JUnit and Mockito
-* Swagger/OpenAPI documentation
+Management Workflow API simulates a backend system for organizations where managers work with employees who speak different languages.
+
+A manager can create a task once, select a workgroup, and the system automatically prepares translated task assignments for employees based on their language.
+
+The project demonstrates practical backend development with Spring Boot, JPA relationships, DTOs, validation, global exception handling, scheduled jobs, and unit testing.
+
+## Example Workflow
+
+Imagine a manager wants to send one task to a workgroup with employees who speak different languages.
+
+Instead of manually creating separate task versions, the manager starts one workflow:
+
+1. The manager selects a task and a workgroup.
+2. The system loads all employees in that workgroup.
+3. Employees are grouped by language.
+4. The task message is translated for each language group.
+5. Translated task versions are created.
+6. Task assignments are generated for the employees.
+7. Each assignment can be tracked by deadline and status.
+
+This turns a manual multilingual assignment process into an automated backend workflow.
+
+## Core Features
+
+- Manager, workgroup, employee, and task management
+- Task assignment creation and tracking
+- Automatic task translation workflow
+- Employee grouping by language
+- Assignment status tracking: `TODO`, `IN_PROGRESS`, `DONE`, `OVERDUE`
+- Bean Validation for request data
+- Global exception handling
+- Scheduled overdue-task detection
+- Unit tests with JUnit and Mockito
+- Swagger/OpenAPI documentation
 
 ## Tech Stack
 
-* Java 21
-* Spring Boot
-* Spring Data JPA
-* Hibernate
-* H2 Database
-* Swagger/OpenAPI
-* JUnit & Mockito
-* Maven
-
-## Entity Relationship Model
-
-```text
-Manager
-├── 1:N WorkGroup
-├── 1:N Task
-
-WorkGroup
-└── 1:N Employee
-
-Employee
-└── 1:N TaskAssignment
-
-Task
-└── 1:N TaskAssignment
-```
+- Java 21
+- Spring Boot
+- Spring Data JPA
+- Hibernate
+- H2 Database
+- Maven
+- Lombok
+- Swagger/OpenAPI
+- JUnit
+- Mockito
 
 ## Architecture
+
+The project follows a layered backend architecture:
 
 ```text
 Controller
@@ -53,30 +64,3 @@ Service
 Repository
     ↓
 Database
-```
-
-## Business Workflow
-
-1. Manager creates a task.
-2. Employees are grouped by language.
-3. Task messages are translated automatically.
-4. Translated tasks are generated.
-5. Task assignments are created for employees.
-
-## Exception Handling
-
-| Exception                   | HTTP Status |
-| --------------------------- | ----------- |
-| ResourceNotFoundException   | 404         |
-| DuplicateResourceException  | 409         |
-| InvalidOperationException   | 400         |
-| BusinessValidationException | 422         |
-| ForbiddenOperationException | 403         |
-
-## API Documentation
-
-Swagger UI:
-
-```text
-http://localhost:8080/swagger-ui/index.html
-```
