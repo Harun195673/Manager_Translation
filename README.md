@@ -147,11 +147,3 @@ Database
 This structure separates API handling, business logic, persistence logic, and database access.
 
 ---
-
-
-
-## Project Purpose
-
-This project was built as a backend portfolio project to demonstrate practical Spring Boot development.
-
-It shows the ability to model a real-world workflow, structure a backend application cleanly, work with relational data, and implement business logic beyond simple CRUD operations.
