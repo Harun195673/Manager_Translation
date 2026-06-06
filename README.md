@@ -13,7 +13,15 @@ A Spring Boot REST API for managing multilingual workgroups, tasks, and task ass
 
 ## Overview
 
+Management Workflow API is a backend application that simulates a real-world management system for teams with employees who speak different languages.
 
+Managers can create workgroups, add employees, create tasks, and automatically assign translated task versions to employees based on their language.
+
+The project goes beyond basic CRUD by modeling a complete business workflow:
+
+> A manager creates one task → the system groups employees by language → translates the task → creates translated task versions → assigns them to the correct employees.
+
+---
 
 ## Entity Relationship Model
 
@@ -61,16 +69,6 @@ erDiagram
         Long task_id
     }
 ```
-
-## Overview
-
-Management Workflow API is a backend application that simulates a real-world management system for teams with employees who speak different languages.
-
-Managers can create workgroups, add employees, create tasks, and automatically assign translated task versions to employees based on their language.
-
-The project goes beyond basic CRUD by modeling a complete business workflow:
-
-> A manager creates one task → the system groups employees by language → translates the task → creates translated task versions → assigns them to the correct employees.
 
 ---
 
@@ -144,3 +142,32 @@ Service
 Repository
     ↓
 Database
+```
+
+This structure separates API handling, business logic, persistence logic, and database access.
+
+---
+
+## Business Logic
+
+The central business logic is the multilingual task assignment workflow.
+
+When a manager creates a task for a workgroup, the application does not simply store the task. Instead, it processes the workgroup, detects the languages spoken by employees, creates translated task versions, and assigns the correct version to each employee.
+
+This demonstrates:
+
+- Domain modeling
+- Service-layer orchestration
+- Entity relationships
+- DTO usage
+- Validation
+- Exception handling
+- Automated workflow logic
+
+---
+
+## Project Purpose
+
+This project was built as a backend portfolio project to demonstrate practical Spring Boot development.
+
+It shows the ability to model a real-world workflow, structure a backend application cleanly, work with relational data, and implement business logic beyond simple CRUD operations.
