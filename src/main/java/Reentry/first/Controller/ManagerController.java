@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Validated
@@ -62,6 +63,24 @@ public class ManagerController {
 
         return managerService.taskTranslationWorkflow(workFlowDto);
     }
+
+
+
+
+
+    @PostMapping("/recruiterTest")
+    public List<RespondTaskAssignmentDTO> testWorkFlow () {
+
+        RequestWorkFlowDTO workFlowDto = new RequestWorkFlowDTO();
+        workFlowDto.setManagerId(1L);
+        workFlowDto.setWorkGroupId(1L);
+        workFlowDto.setDeadline(LocalDate.of(2027, 6, 15));
+        workFlowDto.setTaskId(1L);
+
+
+        return managerService.taskTranslationWorkflow(workFlowDto);
+    }
+
 
 
 }
