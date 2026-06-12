@@ -54,11 +54,11 @@ public class TaskAssignmentService {
     ///  Create
     public RespondTaskAssignmentDTO assignTaskToEmployee (RequestTaskAssignmentDTO dto){
 
-        if(taskAssignmentRepository.existsByNameAndAndDeadline(
-                dto.getName(),
-                dto.getDeadline())) {
-               throw new BusinessValidationException("TaskAssignment already exists");
-        }
+//        if(taskAssignmentRepository.existsByNameAndAndDeadline(
+//                dto.getName(),
+//                dto.getDeadline())) {
+//               throw new BusinessValidationException("TaskAssignment already exists");
+//        }
 
 
         TaskAssignment taskAssignment = taskAssignmentMapper.toEntity(dto);
