@@ -12,31 +12,6 @@ public class FirstApplication {
 
 
 
-	///  Remove status From Task
-	///  Add Status to TaskAssignment
-	///  Create repositories for Employee
-	///  ANd TaskAssignments + new methods
-
-	///  Then, add validation
-	///  Then, try to add exceptions yourself
-	///  Then, add Tests
-	///  Then, learn a bit about Security
-
-
-
-
-
-
-
-
-
-
-	/// Not found exception
-	/// Manager Work Group relation failed
-	/// Bad Reqeust excpetion
-
-
-
 
 
 

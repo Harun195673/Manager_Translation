@@ -51,6 +51,7 @@ public class TaskMapper {
         newTask.setManager(originalTask.getManager());
         newTask.setTitle(originalTask.getTitle());
         newTask.setMessage(translatedMessage);
+        newTask.setCreatedDateTask(LocalDate.now());
         newTask.setTaskAssignmentList(
                 new ArrayList<>(originalTask.getTaskAssignmentList())
         );

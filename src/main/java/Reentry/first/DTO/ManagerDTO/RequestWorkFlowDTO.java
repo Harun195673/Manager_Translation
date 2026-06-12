@@ -20,4 +20,6 @@ public class RequestWorkFlowDTO {
     Long taskId;
     @DateTimeFormat
     LocalDate deadline;
+    @NotNull
+    String taskAssignmentName;
 }

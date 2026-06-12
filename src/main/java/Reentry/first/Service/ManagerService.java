@@ -201,14 +201,15 @@ public class ManagerService {
 
              for (Employee employee: employeeList){
 
-                 RequestTaskAssignmentDTO respondTaskAssignmentDTO =
+                 RequestTaskAssignmentDTO requestTaskAssignmentDTO =
                          taskAssignmentMapper.buildTaskAssignmentRequest(
                                  workFlowDto,
                                  employee,
-                                 translatedTask
+                                 translatedTask,
+                                 newLanguage
                          );
 
-                 RespondTaskAssignmentDTO respondDTO = taskAssignmentService.assignTaskToEmployee(respondTaskAssignmentDTO);
+                 RespondTaskAssignmentDTO respondDTO = taskAssignmentService.assignTaskToEmployee(requestTaskAssignmentDTO);
                  respondTaskAssignmentDTOList.add(respondDTO);
              }
 

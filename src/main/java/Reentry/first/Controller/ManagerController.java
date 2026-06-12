@@ -4,6 +4,9 @@ import Reentry.first.DTO.ManagerDTO.RequestManagerDTO;
 import Reentry.first.DTO.ManagerDTO.RequestWorkFlowDTO;
 import Reentry.first.DTO.ManagerDTO.RespondManagerDTO;
 import Reentry.first.DTO.TaskAssignmentDTO.RespondTaskAssignmentDTO;
+import Reentry.first.Entity.Manager;
+import Reentry.first.Entity.Task;
+import Reentry.first.Entity.WorkGroup;
 import Reentry.first.Service.ManagerService;
 import jakarta.validation.Valid;
 import org.springframework.validation.annotation.Validated;
@@ -65,21 +68,6 @@ public class ManagerController {
     }
 
 
-
-
-
-    @PostMapping("/recruiterTest")
-    public List<RespondTaskAssignmentDTO> testWorkFlow () {
-
-        RequestWorkFlowDTO workFlowDto = new RequestWorkFlowDTO();
-        workFlowDto.setManagerId(1L);
-        workFlowDto.setWorkGroupId(1L);
-        workFlowDto.setDeadline(LocalDate.of(2027, 6, 15));
-        workFlowDto.setTaskId(1L);
-
-
-        return managerService.taskTranslationWorkflow(workFlowDto);
-    }
 
 
 

@@ -6,6 +6,7 @@ import Reentry.first.Entity.Task;
 import Reentry.first.Entity.TaskAssignment;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class TaskAssignmentMapper {
         taskAssignment.setDeadline(dto.getDeadline());
         taskAssignment.setStatus(TaskAssignment.Status.TODO);
         taskAssignment.setName(dto.getName());
+
 
 
         return taskAssignment;
@@ -39,6 +41,7 @@ public class TaskAssignmentMapper {
         dto.setEmployeeName(newtaskAssignment.getEmployee().getName());
         dto.setDeadline(newtaskAssignment.getDeadline());
         dto.setName(newtaskAssignment.getName());
+        dto.setCreatedDate(LocalDate.now());
         ///  let hours worked stay null:
         return dto;
     }
@@ -77,7 +80,8 @@ public class TaskAssignmentMapper {
     public RequestTaskAssignmentDTO buildTaskAssignmentRequest(
             RequestWorkFlowDTO workFlowDto,
             Employee employee,
-            Task translatedTask
+            Task translatedTask,
+            String newLanguageName
     ) {
 
         RequestTaskAssignmentDTO taskAssignmentDTO =
@@ -86,6 +90,7 @@ public class TaskAssignmentMapper {
         taskAssignmentDTO.setDeadline(workFlowDto.getDeadline());
         taskAssignmentDTO.setEmployeeId(employee.getId());
         taskAssignmentDTO.setTaskId(translatedTask.getId());
+        taskAssignmentDTO.setName(workFlowDto.getTaskAssignmentName() + "-" + newLanguageName);
 
         return taskAssignmentDTO;
     }
