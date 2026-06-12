@@ -58,7 +58,29 @@ public class DemoDataLoader implements CommandLineRunner {
         employee3.setLanguage(Employee.Language.Polish);
         employee3.setWorkGroup(workGroup);
 
-        employeeRepository.saveAll(List.of(employee1, employee2, employee3));
+        Employee employee4 = new Employee();
+        employee4.setName("Fatima");
+        employee4.setLanguage(Employee.Language.Arabic);
+        employee4.setWorkGroup(workGroup);
+
+        Employee employee5 = new Employee();
+        employee5.setName("Ayse");
+        employee5.setLanguage(Employee.Language.Turkish);
+        employee5.setWorkGroup(workGroup);
+
+        Employee employee6 = new Employee();
+        employee6.setName("Kasia");
+        employee6.setLanguage(Employee.Language.Polish);
+        employee6.setWorkGroup(workGroup);
+
+        employeeRepository.saveAll(List.of(
+                employee1,
+                employee2,
+                employee3,
+                employee4,
+                employee5,
+                employee6
+        ));
 
         Task task1 = new Task();
         task1.setTitle("Prepare onboarding document");

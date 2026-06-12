@@ -34,7 +34,7 @@ public class RecruiterTestController {
         workFlowDto.setWorkGroupId(1L);
         workFlowDto.setDeadline(LocalDate.of(2030, 6, 15));
         workFlowDto.setTaskId(1L);
-        workFlowDto.setTaskAssignmentName("Operation");
+        workFlowDto.setTaskAssignmentName("Clean the floors in the hallway");
 
         return managerService.taskTranslationWorkflow(workFlowDto);
     }

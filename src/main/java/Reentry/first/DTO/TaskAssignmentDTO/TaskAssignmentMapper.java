@@ -90,7 +90,7 @@ public class TaskAssignmentMapper {
         taskAssignmentDTO.setDeadline(workFlowDto.getDeadline());
         taskAssignmentDTO.setEmployeeId(employee.getId());
         taskAssignmentDTO.setTaskId(translatedTask.getId());
-        taskAssignmentDTO.setName(workFlowDto.getTaskAssignmentName() + "-" + newLanguageName);
+        taskAssignmentDTO.setName( "Task name: " + workFlowDto.getTaskAssignmentName()+ " (" + newLanguageName + ")");
 
         return taskAssignmentDTO;
     }
