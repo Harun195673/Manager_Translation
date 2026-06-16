@@ -20,16 +20,16 @@ public class TranslationService {
 
     public String translateText(String text, String sourceLang, String targetLang) {
         try {
-            // Encode text to be URL-safe
+            /// Encode text to be URL-safe
             String encodedText = URLEncoder.encode(text, StandardCharsets.UTF_8);
 
-            // Build URL
+            /// Build URL
             String url = String.format(
                     "https://api.mymemory.translated.net/get?q=%s&langpair=%s|%s",
                     encodedText, sourceLang, targetLang
             );
 
-            // Make GET request
+            /// Make GET request
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
 
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
