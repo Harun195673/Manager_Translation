@@ -9,11 +9,9 @@ import management_workflow_api.DTO.TaskAssignmentDTO.RequestTaskAssignmentDTO;
 import management_workflow_api.DTO.TaskAssignmentDTO.RespondTaskAssignmentDTO;
 import management_workflow_api.DTO.TaskAssignmentDTO.TaskAssignmentMapper;
 import management_workflow_api.DTO.TaskDTO.TaskMapper;
+import management_workflow_api.DTO.WebUser.WebUserMapper;
 import management_workflow_api.DTO.WorkgroupDTO.WorkGroupMapper;
-import management_workflow_api.Entity.Employee;
-import management_workflow_api.Entity.Manager;
-import management_workflow_api.Entity.Task;
-import management_workflow_api.Entity.WorkGroup;
+import management_workflow_api.Entity.*;
 import management_workflow_api.Exceptions.DuplicateResourceException;
 import management_workflow_api.Exceptions.InvalidOperationException;
 import management_workflow_api.Exceptions.ResourceNotFoundException;
@@ -40,6 +38,8 @@ public class ManagerService {
     private final TranslationService translationService;
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
+    private final WebUserRepository webUserRepository;
+    private final WebUserMapper webUserMapper;
 
     public ManagerService(ManagerRepository managerRepository,
                           WorkGroupRepository workGroupRepository,
@@ -52,7 +52,9 @@ public class ManagerService {
                           TaskAssignmentMapper taskAssignmentMapper,
                           TranslationService translationService,
                           TaskRepository taskRepository,
-                          TaskMapper taskMapper) {
+                          TaskMapper taskMapper,
+                          WebUserRepository webUserRepository,
+                          WebUserMapper webUserMapper) {
         this.managerRepository = managerRepository;
         this.workGroupRepository = workGroupRepository;
         this.workGroupMapper = workGroupMapper;
@@ -65,6 +67,8 @@ public class ManagerService {
         this.translationService = translationService;
         this.taskRepository = taskRepository;
         this.taskMapper = taskMapper;
+        this.webUserRepository = webUserRepository;
+        this.webUserMapper = webUserMapper;
     }
 
 
@@ -74,11 +78,17 @@ public class ManagerService {
 
         if (managerRepository.existsByName(dto.getName())){
             throw new DuplicateResourceException("Manager already exists. " +
-                                                 "Choose a different name");
+                    "Choose a different name");
         }
 
         Manager manager = managerMapper.toEntity(dto);
         managerRepository.save(manager);
+
+
+        WebUser webUser = webUserMapper.fromManager(dto);
+        webUserRepository.save(webUser);
+
+
         return managerMapper.toRespondDTO(manager);
     }
 
@@ -121,7 +131,7 @@ public class ManagerService {
 
 
         if (!managerRepository.existsByName(dto.getName())
-                        && !manager.getName().equals(manager.getName())){
+                && !manager.getName().equals(manager.getName())){
             throw new DuplicateResourceException("Manager already exists. Choose a different name");
         }
 
@@ -202,19 +212,19 @@ public class ManagerService {
 
 
 
-             for (Employee employee: employeeList){
+            for (Employee employee: employeeList){
 
-                 RequestTaskAssignmentDTO requestTaskAssignmentDTO =
-                         taskAssignmentMapper.buildTaskAssignmentRequest(
-                                 workFlowDto,
-                                 employee,
-                                 translatedTask,
-                                 newLanguage
-                         );
+                RequestTaskAssignmentDTO requestTaskAssignmentDTO =
+                        taskAssignmentMapper.buildTaskAssignmentRequest(
+                                workFlowDto,
+                                employee,
+                                translatedTask,
+                                newLanguage
+                        );
 
-                 RespondTaskAssignmentDTO respondDTO = taskAssignmentService.assignTaskToEmployee(requestTaskAssignmentDTO);
-                 respondTaskAssignmentDTOList.add(respondDTO);
-             }
+                RespondTaskAssignmentDTO respondDTO = taskAssignmentService.assignTaskToEmployee(requestTaskAssignmentDTO);
+                respondTaskAssignmentDTOList.add(respondDTO);
+            }
 
         }
         return respondTaskAssignmentDTOList;

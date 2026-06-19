@@ -4,13 +4,16 @@ import management_workflow_api.DTO.EmployeeDTO.EmployeeMapper;
 import management_workflow_api.DTO.EmployeeDTO.RequestEmployeeDTO;
 import management_workflow_api.DTO.EmployeeDTO.RespondEmployeeDTO;
 import management_workflow_api.DTO.EmployeeDTO.UpdateEmployeeDTO;
+import management_workflow_api.DTO.WebUser.WebUserMapper;
 import management_workflow_api.Entity.Employee;
 import management_workflow_api.Entity.TaskAssignment;
+import management_workflow_api.Entity.WebUser;
 import management_workflow_api.Entity.WorkGroup;
 import management_workflow_api.Exceptions.DuplicateResourceException;
 import management_workflow_api.Exceptions.ResourceNotFoundException;
 import management_workflow_api.Repository.EmployeeRepository;
 import management_workflow_api.Repository.TaskAssignmentRepository;
+import management_workflow_api.Repository.WebUserRepository;
 import management_workflow_api.Repository.WorkGroupRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -24,16 +27,22 @@ public class EmployeeService {
     private final EmployeeMapper employeeMapper;
     private final WorkGroupRepository workGroupRepository;
     private final TaskAssignmentRepository taskAssignmentRepository;
+    private final WebUserMapper webUserMapper;
+    private final WebUserRepository webUserRepository;
 
     public EmployeeService(EmployeeRepository employeeRepository,
                            EmployeeMapper employeeMapper,
                            WorkGroupRepository workGroupRepository,
-                           TaskAssignmentRepository taskAssignmentRepository) {
+                           TaskAssignmentRepository taskAssignmentRepository,
+                           WebUserMapper webUserMapper,
+                           WebUserRepository webUserRepository) {
 
         this.employeeRepository = employeeRepository;
         this.employeeMapper = employeeMapper;
         this.workGroupRepository = workGroupRepository;
         this.taskAssignmentRepository = taskAssignmentRepository;
+        this.webUserMapper = webUserMapper;
+        this.webUserRepository = webUserRepository;
     }
 
 
@@ -52,11 +61,17 @@ public class EmployeeService {
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Employee not found"));
 
+
         Employee employee = employeeMapper.toEntity(dto);
-
         employee.setWorkGroup(workGroup);
-
         employeeRepository.save(employee);
+
+
+        ///  password encyrpter
+        WebUser webUser = webUserMapper.fromEmployee(dto);
+        webUserRepository.save(webUser);
+
+
 
         return employeeMapper.toRespondDTO(employee);
     }

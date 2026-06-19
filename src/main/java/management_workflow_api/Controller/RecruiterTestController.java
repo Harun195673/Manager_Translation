@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/recruiter")
+@RequestMapping("/public/recruiter")
 public class RecruiterTestController {
 
     private final ManagerService managerService;

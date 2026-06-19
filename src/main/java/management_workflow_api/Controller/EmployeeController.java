@@ -15,7 +15,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("/employees")
+@RequestMapping("/employee")
 public class EmployeeController {
 
     private final EmployeeService employeeService;

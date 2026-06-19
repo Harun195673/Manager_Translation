@@ -26,6 +26,14 @@ public class Manager {
     @OneToMany(mappedBy = "manager", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WorkGroup> workGroupList;
 
+    @OneToOne(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JoinColumn(name = "webUser_id")
+    WebUser webUser;
+
+
 
     public Manager (RequestManagerDTO requestManagerDTO){
             this.id = null;

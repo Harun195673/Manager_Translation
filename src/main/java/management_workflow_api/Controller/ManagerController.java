@@ -13,7 +13,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("/managers")
+@RequestMapping("/manager")
 public class ManagerController {
 
     private final ManagerService managerService;

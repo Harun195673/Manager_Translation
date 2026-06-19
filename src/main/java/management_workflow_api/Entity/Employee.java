@@ -28,6 +28,16 @@ public class Employee {
     private WorkGroup workGroup;
 
 
+        @OneToOne(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JoinColumn(name = "webUser_Id")
+    WebUser webUser;
+
+
+
+
     @Enumerated(EnumType.STRING)
     private Language language;
 

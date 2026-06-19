@@ -16,5 +16,9 @@ public class RequestEmployeeDTO {
     private String name;
     @NotNull(message = "Language required")
     private Employee.Language language;
+    @NotBlank(message = "userName required")
+    private String userName;
+    @NotBlank(message = "password required")
+    private String password;
 
 }
