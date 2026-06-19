@@ -16,6 +16,7 @@ import management_workflow_api.Exceptions.DuplicateResourceException;
 import management_workflow_api.Exceptions.InvalidOperationException;
 import management_workflow_api.Exceptions.ResourceNotFoundException;
 import management_workflow_api.Repository.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class ManagerService {
     private final TaskMapper taskMapper;
     private final WebUserRepository webUserRepository;
     private final WebUserMapper webUserMapper;
+    private final PasswordEncoder passwordEncoder;
 
     public ManagerService(ManagerRepository managerRepository,
                           WorkGroupRepository workGroupRepository,
@@ -54,7 +56,8 @@ public class ManagerService {
                           TaskRepository taskRepository,
                           TaskMapper taskMapper,
                           WebUserRepository webUserRepository,
-                          WebUserMapper webUserMapper) {
+                          WebUserMapper webUserMapper,
+                          PasswordEncoder passwordEncoder) {
         this.managerRepository = managerRepository;
         this.workGroupRepository = workGroupRepository;
         this.workGroupMapper = workGroupMapper;
@@ -69,6 +72,7 @@ public class ManagerService {
         this.taskMapper = taskMapper;
         this.webUserRepository = webUserRepository;
         this.webUserMapper = webUserMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -76,22 +80,27 @@ public class ManagerService {
     /// CREATE
     public RespondManagerDTO createManager(RequestManagerDTO dto) {
 
-        if (managerRepository.existsByName(dto.getName())){
-            throw new DuplicateResourceException("Manager already exists. " +
-                    "Choose a different name");
+        if (managerRepository.existsByName(dto.getName())) {
+            throw new DuplicateResourceException(
+                    "Manager already exists. Choose a different name"
+            );
         }
 
         Manager manager = managerMapper.toEntity(dto);
-        managerRepository.save(manager);
-
 
         WebUser webUser = webUserMapper.fromManager(dto);
-        webUserRepository.save(webUser);
 
+        webUser.setPassword(
+                passwordEncoder.encode(webUser.getPassword())
+        );
 
-        return managerMapper.toRespondDTO(manager);
+        manager.setWebUser(webUser);
+        webUser.setManager(manager);
+
+        Manager savedManager = managerRepository.save(manager);
+
+        return managerMapper.toRespondDTO(savedManager);
     }
-
 
 
 

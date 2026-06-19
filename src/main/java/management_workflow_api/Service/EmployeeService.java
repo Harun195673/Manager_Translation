@@ -16,6 +16,7 @@ import management_workflow_api.Repository.TaskAssignmentRepository;
 import management_workflow_api.Repository.WebUserRepository;
 import management_workflow_api.Repository.WorkGroupRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,13 +30,15 @@ public class EmployeeService {
     private final TaskAssignmentRepository taskAssignmentRepository;
     private final WebUserMapper webUserMapper;
     private final WebUserRepository webUserRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public EmployeeService(EmployeeRepository employeeRepository,
                            EmployeeMapper employeeMapper,
                            WorkGroupRepository workGroupRepository,
                            TaskAssignmentRepository taskAssignmentRepository,
                            WebUserMapper webUserMapper,
-                           WebUserRepository webUserRepository) {
+                           WebUserRepository webUserRepository,
+                           PasswordEncoder passwordEncoder) {
 
         this.employeeRepository = employeeRepository;
         this.employeeMapper = employeeMapper;
@@ -43,6 +46,7 @@ public class EmployeeService {
         this.taskAssignmentRepository = taskAssignmentRepository;
         this.webUserMapper = webUserMapper;
         this.webUserRepository = webUserRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -51,31 +55,32 @@ public class EmployeeService {
 
 
     /// CREATE
-    public RespondEmployeeDTO createEmployee (RequestEmployeeDTO dto) {
+    public RespondEmployeeDTO createEmployee(RequestEmployeeDTO dto) {
 
-        if (employeeRepository.existsByNameAndLanguage(dto.getName(), dto.getLanguage())){
+        if (employeeRepository.existsByNameAndLanguage(dto.getName(), dto.getLanguage())) {
             throw new DuplicateResourceException("Employee already exists");
         }
 
         WorkGroup workGroup = workGroupRepository.findById(dto.getWorkGroupId())
                 .orElseThrow(() ->
-                        new ResourceNotFoundException("Employee not found"));
-
+                        new ResourceNotFoundException("WorkGroup not found"));
 
         Employee employee = employeeMapper.toEntity(dto);
         employee.setWorkGroup(workGroup);
-        employeeRepository.save(employee);
 
-
-        ///  password encyrpter
         WebUser webUser = webUserMapper.fromEmployee(dto);
-        webUserRepository.save(webUser);
 
+        webUser.setPassword(
+                passwordEncoder.encode(webUser.getPassword())
+        );
 
+        employee.setWebUser(webUser);
+        webUser.setEmployee(employee);
 
-        return employeeMapper.toRespondDTO(employee);
+        Employee savedEmployee = employeeRepository.save(employee);
+
+        return employeeMapper.toRespondDTO(savedEmployee);
     }
-
 
     /// GET BY ID
     public RespondEmployeeDTO getEmployeeById(Long id) {
