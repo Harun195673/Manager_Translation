@@ -7,7 +7,9 @@ A Spring Boot REST API for managing multilingual workgroups, tasks, task assignm
 ## Live Demo
 
 **Swagger UI:**
-[Open API Documentation](https://manager-translation.onrender.com/swagger-ui/index.html#/employee-controller/getAllEmployees)
+[Open API Documentation](https://manager-translation.onrender.com/swagger-ui/index.html#/recruiter-test-controller/testWorkFlow)
+
+The recruiter demo endpoint starts the main workflow automatically and does not require manual input.
 
 ---
 
@@ -114,20 +116,13 @@ This turns a manual multilingual assignment process into an automated backend wo
 
 ## Core Features
 
-* CRUD operations for managers, workgroups, employees, tasks, and assignments
-* Spring Security authentication
-* BCrypt password encryption
-* User accounts with roles
-* One-to-one relationship between `WebUser` and `Manager`
-* One-to-one relationship between `WebUser` and `Employee`
-* Role-based structure for managers and employees
-* Automated multilingual task assignment workflow
-* Employee grouping by language
+* CRUD for managers, workgroups, employees, tasks, and assignments
+* Spring Security with role-based access and BCrypt passwords
+* WebUser accounts linked to managers and employees
+* Automated multilingual task assignment by employee language
 * Assignment status tracking: `TODO`, `IN_PROGRESS`, `DONE`, `OVERDUE`
-* Bean Validation and global exception handling
-* Scheduled overdue-task detection
-* Unit tests with JUnit and Mockito
-* Swagger/OpenAPI documentation
+* Validation, global exception handling, overdue-task scheduling
+* Unit tests and Swagger/OpenAPI documentation
 
 ---
 
@@ -164,3 +159,30 @@ Database
 This structure separates API handling, business logic, persistence logic, and database access.
 
 Security is handled through Spring Security, with authenticated `WebUser` accounts connected to business entities such as `Manager` and `Employee`.
+
+---
+
+## Security
+
+This project includes **Spring Security** with HTTP Basic Authentication, BCrypt password encryption, and role-based endpoint access.
+
+### Demo Login Accounts
+
+| Username | Password | Role |
+|---|---|---|
+| `manager` | `password` | `MANAGER` |
+| `anna` | `password` | `EMPLOYEE` |
+| `kasia` | `password` | `EMPLOYEE` |
+
+### Endpoint Access
+
+| Endpoint Pattern | Access |
+|---|---|
+| `/swagger-ui/**`, `/v3/api-docs/**`, `/public/**`, `/h2-console/**`, `/translate/**` | Public |
+| `/recruiter/**` | Public recruiter demo endpoint that activates the workflow without manual input |
+| `/managers/**`, `/workgroups/**`, `/taskAssignments/**` | `MANAGER` |
+| `/employees/**`, `/tasks/**` | `MANAGER` or `EMPLOYEE` |
+| `/webUsers/**` | `ADMIN` |
+| Other endpoints | Authenticated users |
+
+To test protected endpoints in Swagger UI, click **Authorize** and log in with one of the demo accounts.
