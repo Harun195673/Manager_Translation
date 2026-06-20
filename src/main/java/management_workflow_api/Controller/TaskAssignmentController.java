@@ -11,7 +11,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("/manager/task-assignments")
+@RequestMapping("/taskAssignments")
 public class TaskAssignmentController {
 
     TaskAssignmentService taskAssignmentService;

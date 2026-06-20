@@ -1,6 +1,5 @@
 package management_workflow_api.Security;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -24,18 +23,33 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth
 
-                        // public endpoints
-                        .requestMatchers("/public/**").permitAll()
+                        // Public endpoints
+                        .requestMatchers(
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/public/**",
+                                "/h2-console/**"
+                        ).permitAll()
 
-                        // H2 console
-                        .requestMatchers("/h2-console/**").permitAll()
+                        // Manager-only endpoints
+                        .requestMatchers(
+                                "/managers/**",
+                                "/workgroups/**",
+                                "/taskAssignments/**"
+                        ).hasRole("MANAGER")
 
-                        // ROLE-based endpoints
-                        .requestMatchers("/manager/**").hasRole("MANAGER")
-                        .requestMatchers("/employee/**").hasRole("EMPLOYEE")
-                        .requestMatchers("/tasks/**").hasAnyRole("MANAGER", "EMPLOYEE")
+                        // Employee + Manager endpoints
+                        .requestMatchers(
+                                "/employees/**",
+                                "/tasks/**",
+                                "/translate/**"
+                        ).hasAnyRole("MANAGER", "EMPLOYEE")
 
-                        // everything else must be logged in
+                        // Admin-only endpoints
+                        .requestMatchers("/webUsers/**")
+                        .hasRole("ADMIN")
+
+                        // Everything else requires login
                         .anyRequest().authenticated()
                 )
 

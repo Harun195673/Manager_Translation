@@ -11,7 +11,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("/manager/tasks")
+@RequestMapping("/tasks")
 public class TaskController {
 
     private final TaskService taskService;

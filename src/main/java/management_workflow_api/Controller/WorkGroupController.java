@@ -12,7 +12,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("/manager/workgroups")
+@RequestMapping("/workgroups")
 public class WorkGroupController {
 
     private final WorkGroupService workGroupService;
