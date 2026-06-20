@@ -22,4 +22,6 @@ public class RequestTaskAssignmentDTO {
     private Long employeeId;
     @NotBlank(message = "TaskAssignment name required.")
     private String name;
+    @NotBlank(message = "translatedTask name required.")
+    private String translatedTask;
 }

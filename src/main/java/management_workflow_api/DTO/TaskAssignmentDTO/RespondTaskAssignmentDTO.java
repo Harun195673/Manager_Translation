@@ -21,6 +21,7 @@ public class RespondTaskAssignmentDTO {
     private String taskTitle;
     private String employeeName;
     private String name;
+    private String translatedTask;
 
 
 

@@ -206,9 +206,11 @@ public class ManagerService {
 
 
             ///  new values
-            String newLanguage = entry.getKey().name();
+            Employee.Language targetLanguage = entry.getKey();
             String taskMessage = task.getMessage();
-            String translatedMessage = translationService.translateText(taskMessage,"German", newLanguage);
+            String translatedMessage = translationService.translateText(taskMessage, Employee.Language.GERMAN, targetLanguage);
+            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            System.out.println(translatedMessage);
 
 
             ///  create and save the translated task
@@ -228,7 +230,7 @@ public class ManagerService {
                                 workFlowDto,
                                 employee,
                                 translatedTask,
-                                newLanguage
+                                targetLanguage
                         );
 
                 RespondTaskAssignmentDTO respondDTO = taskAssignmentService.assignTaskToEmployee(requestTaskAssignmentDTO);

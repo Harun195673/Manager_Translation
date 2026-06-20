@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/public/recruiter")
+@RequestMapping("/public")
 public class RecruiterTestController {
 
     private final ManagerService managerService;
@@ -30,7 +30,7 @@ public class RecruiterTestController {
         workFlowDto.setWorkGroupId(1L);
         workFlowDto.setDeadline(LocalDate.of(2030, 6, 15));
         workFlowDto.setTaskId(1L);
-        workFlowDto.setTaskAssignmentName("Clean the floors in the hallway");
+        workFlowDto.setTaskAssignmentName("Wisch den Boden im Flur.");
 
         return managerService.taskTranslationWorkflow(workFlowDto);
     }

@@ -23,33 +23,34 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth
 
-                        // Public endpoints
+
                         .requestMatchers(
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
                                 "/public/**",
-                                "/h2-console/**"
+                                "/h2-console/**",
+                                "/translate/**"
                         ).permitAll()
 
-                        // Manager-only endpoints
+
                         .requestMatchers(
                                 "/managers/**",
                                 "/workgroups/**",
                                 "/taskAssignments/**"
                         ).hasRole("MANAGER")
 
-                        // Employee + Manager endpoints
+
                         .requestMatchers(
                                 "/employees/**",
                                 "/tasks/**",
                                 "/translate/**"
                         ).hasAnyRole("MANAGER", "EMPLOYEE")
 
-                        // Admin-only endpoints
+
                         .requestMatchers("/webUsers/**")
                         .hasRole("ADMIN")
 
-                        // Everything else requires login
+
                         .anyRequest().authenticated()
                 )
 

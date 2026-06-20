@@ -1,14 +1,10 @@
 package management_workflow_api.Controller;
 
-import management_workflow_api.Service.TranslationService;
 import jakarta.validation.Valid;
-import lombok.Getter;
-import lombok.Setter;
+import management_workflow_api.DTO.TranslationDTO.RequestTranslationDTO;
+import management_workflow_api.Service.TranslationService;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Validated
 @RestController
@@ -22,21 +18,11 @@ public class TranslationController {
     }
 
     @PostMapping
-    public String translateText(@RequestBody @Valid TranslationRequest request) {
+    public String translateText(@RequestBody @Valid RequestTranslationDTO request) {
         return translationService.translateText(
                 request.getText(),
                 request.getSourceLang(),
                 request.getTargetLang()
         );
-    }
-
-    @Getter
-    @Setter
-    public static class TranslationRequest {
-        private String text;
-        private String sourceLang; // e.g., "en"
-        private String targetLang; // e.g., "de"
-
-        public TranslationRequest() {} // for Jackson
     }
 }

@@ -75,7 +75,7 @@ public class DemoDataLoader implements CommandLineRunner {
 
         Employee employee1 = new Employee();
         employee1.setName("Ahmed");
-        employee1.setLanguage(Employee.Language.Arabic);
+        employee1.setLanguage(Employee.Language.ARABIC);
         employee1.setWorkGroup(workGroup);
         employee1.setWebUser(employee1User);
 
@@ -92,7 +92,7 @@ public class DemoDataLoader implements CommandLineRunner {
 
         Employee employee2 = new Employee();
         employee2.setName("Murat");
-        employee2.setLanguage(Employee.Language.Turkish);
+        employee2.setLanguage(Employee.Language.TURKISH);
         employee2.setWorkGroup(workGroup);
         employee2.setWebUser(employee2User);
 
@@ -109,7 +109,7 @@ public class DemoDataLoader implements CommandLineRunner {
 
         Employee employee3 = new Employee();
         employee3.setName("Anna");
-        employee3.setLanguage(Employee.Language.Polish);
+        employee3.setLanguage(Employee.Language.POLISH);
         employee3.setWorkGroup(workGroup);
         employee3.setWebUser(employee3User);
 
@@ -126,7 +126,7 @@ public class DemoDataLoader implements CommandLineRunner {
 
         Employee employee4 = new Employee();
         employee4.setName("Fatima");
-        employee4.setLanguage(Employee.Language.Arabic);
+        employee4.setLanguage(Employee.Language.ARABIC);
         employee4.setWorkGroup(workGroup);
         employee4.setWebUser(employee4User);
 
@@ -143,7 +143,7 @@ public class DemoDataLoader implements CommandLineRunner {
 
         Employee employee5 = new Employee();
         employee5.setName("Ayse");
-        employee5.setLanguage(Employee.Language.Turkish);
+        employee5.setLanguage(Employee.Language.TURKISH);
         employee5.setWorkGroup(workGroup);
         employee5.setWebUser(employee5User);
 
@@ -160,7 +160,7 @@ public class DemoDataLoader implements CommandLineRunner {
 
         Employee employee6 = new Employee();
         employee6.setName("Kasia");
-        employee6.setLanguage(Employee.Language.Polish);
+        employee6.setLanguage(Employee.Language.POLISH);
         employee6.setWorkGroup(workGroup);
         employee6.setWebUser(employee6User);
 

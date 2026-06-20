@@ -21,6 +21,7 @@ public class TaskAssignmentMapper {
         taskAssignment.setDeadline(dto.getDeadline());
         taskAssignment.setStatus(TaskAssignment.Status.TODO);
         taskAssignment.setName(dto.getName());
+        taskAssignment.setTranslatedText(dto.getTranslatedTask());
 
 
 
@@ -42,7 +43,7 @@ public class TaskAssignmentMapper {
         dto.setDeadline(newtaskAssignment.getDeadline());
         dto.setName(newtaskAssignment.getName());
         dto.setCreatedDate(LocalDate.now());
-        ///  let hours worked stay null:
+        dto.setTranslatedTask(newtaskAssignment.getTranslatedText());
         return dto;
     }
 
@@ -81,7 +82,7 @@ public class TaskAssignmentMapper {
             RequestWorkFlowDTO workFlowDto,
             Employee employee,
             Task translatedTask,
-            String newLanguageName
+            Employee.Language newLanguageName
     ) {
 
         RequestTaskAssignmentDTO taskAssignmentDTO =
@@ -91,6 +92,7 @@ public class TaskAssignmentMapper {
         taskAssignmentDTO.setEmployeeId(employee.getId());
         taskAssignmentDTO.setTaskId(translatedTask.getId());
         taskAssignmentDTO.setName( "Task name: " + workFlowDto.getTaskAssignmentName()+ " (" + newLanguageName + ")");
+        taskAssignmentDTO.setTranslatedTask(translatedTask.getMessage());
 
         return taskAssignmentDTO;
     }

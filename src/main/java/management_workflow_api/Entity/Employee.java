@@ -42,14 +42,15 @@ public class Employee {
     private Language language;
 
     public enum Language {
-        Turkish,
-        Polish,
-        Russian,
-        Arabic,
-        Spanish,
-        French
+        TURKISH,
+        POLISH,
+        RUSSIAN,
+        ARABIC,
+        SPANISH,
+        FRENCH,
+        GERMAN,
+        ENGLISH
     }
-
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE, orphanRemoval = true)
     List<TaskAssignment> taskAssignmentList;

@@ -21,6 +21,7 @@ public class TaskAssignment {
     private String name;
     private LocalDate deadline;
     private int hoursWorked;
+    private String translatedText;
 
 
     @Enumerated(EnumType.STRING)
