@@ -44,10 +44,10 @@ class EmployeeServiceTest {
     void createEmployee_shouldThrowDuplicateResourceException_whenEmployeeAlreadyExists() {
         RequestEmployeeDTO dto = new RequestEmployeeDTO();
         dto.setName("Mehmet");
-        dto.setLanguage(Employee.Language.Turkish);
+        dto.setLanguage(Employee.Language.TURKISH);
         dto.setWorkGroupId(1L);
 
-        when(employeeRepository.existsByNameAndLanguage("Mehmet", Employee.Language.Turkish))
+        when(employeeRepository.existsByNameAndLanguage("Mehmet", Employee.Language.TURKISH))
                 .thenReturn(true);
 
         assertThrows(DuplicateResourceException.class, () -> {
@@ -61,10 +61,10 @@ class EmployeeServiceTest {
     void createEmployee_shouldThrowResourceNotFoundException_whenWorkGroupDoesNotExist() {
         RequestEmployeeDTO dto = new RequestEmployeeDTO();
         dto.setName("Mehmet");
-        dto.setLanguage(Employee.Language.Turkish);
+        dto.setLanguage(Employee.Language.TURKISH);
         dto.setWorkGroupId(1L);
 
-        when(employeeRepository.existsByNameAndLanguage("Mehmet", Employee.Language.Turkish))
+        when(employeeRepository.existsByNameAndLanguage("Mehmet", Employee.Language.TURKISH))
                 .thenReturn(false);
 
         when(workGroupRepository.findById(1L))
