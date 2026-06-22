@@ -34,14 +34,14 @@ public class SecurityConfig {
 
 
                         .requestMatchers(
-                                "/managers/**",
+                                "/manager/**",
                                 "/workgroups/**",
                                 "/taskAssignments/**"
                         ).hasRole("MANAGER")
 
 
                         .requestMatchers(
-                                "/employees/**",
+                                "/employee/**",
                                 "/tasks/**",
                                 "/translate/**"
                         ).hasAnyRole("MANAGER", "EMPLOYEE")
