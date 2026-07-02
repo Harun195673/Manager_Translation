@@ -1,11 +1,9 @@
 package management_workflow_api.Service;
 
-import management_workflow_api.DTO.EmployeeDTO.EmployeeMapper;
 import management_workflow_api.DTO.TaskAssignmentDTO.RequestTaskAssignmentDTO;
 import management_workflow_api.DTO.TaskAssignmentDTO.RequestUpdateTaskAssignmentDTO;
 import management_workflow_api.DTO.TaskAssignmentDTO.RespondTaskAssignmentDTO;
 import management_workflow_api.DTO.TaskAssignmentDTO.TaskAssignmentMapper;
-import management_workflow_api.DTO.TaskDTO.TaskMapper;
 import management_workflow_api.Entity.Employee;
 import management_workflow_api.Entity.Task;
 import management_workflow_api.Entity.TaskAssignment;
@@ -23,217 +21,149 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 
-
 @Service
 public class TaskAssignmentService {
 
-
     private final TaskRepository taskRepository;
-    private final TaskMapper taskMapper;
     private final EmployeeRepository employeeRepository;
-    private final EmployeeMapper employeeMapper;
     private final TaskAssignmentRepository taskAssignmentRepository;
     private final TaskAssignmentMapper taskAssignmentMapper;
 
     public TaskAssignmentService(TaskRepository taskRepository,
-                                 TaskMapper taskMapper,
                                  EmployeeRepository employeeRepository,
-                                 EmployeeMapper employeeMapper,
                                  TaskAssignmentRepository taskAssignmentRepository,
                                  TaskAssignmentMapper taskAssignmentMapper) {
         this.taskRepository = taskRepository;
-        this.taskMapper = taskMapper;
         this.employeeRepository = employeeRepository;
-        this.employeeMapper = employeeMapper;
         this.taskAssignmentRepository = taskAssignmentRepository;
         this.taskAssignmentMapper = taskAssignmentMapper;
     }
 
+    @Transactional
+    public RespondTaskAssignmentDTO assignTaskToEmployee(RequestTaskAssignmentDTO dto) {
+        Task task = findTaskById(dto.getTaskId());
+        Employee employee = findEmployeeById(dto.getEmployeeId());
 
+        validateDeadlineIsPresent(dto.getDeadline());
+        validateDeadlineIsNotInPast(dto.getDeadline());
+        validateDeadlineIsNotBeforeTaskCreatedDate(task, dto.getDeadline());
 
-    ///  Create
-    public RespondTaskAssignmentDTO assignTaskToEmployee (RequestTaskAssignmentDTO dto){
-
-//        if(taskAssignmentRepository.existsByNameAndAndDeadline(
-//                dto.getName(),
-//                dto.getDeadline())) {
-//               throw new BusinessValidationException("TaskAssignment already exists");
-//        }
-
+        if (taskAssignmentRepository.existsByTask_IdAndEmployee_Id(task.getId(), employee.getId())) {
+            throw new DuplicateResourceException("Employee is already assigned to this task");
+        }
 
         TaskAssignment taskAssignment = taskAssignmentMapper.toEntity(dto);
-
-        Task task = taskRepository.findById(dto.getTaskId())
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Task not found"));
-        Employee employee = employeeRepository.findById(dto.getEmployeeId())
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Employee not found"));
-
-        if (task.getCreatedDateTask().isAfter(taskAssignment.getDeadline())){
-            throw new InvalidOperationException("Deadline cannot be before start date");
-        }
-
-
-
-        /// Check if task is completed
-        TaskAssignment taskAssignmentFoundByTaskId = taskAssignmentRepository.findByTaskId(task.getId());
-        if (taskAssignmentFoundByTaskId != null &&
-                taskAssignmentFoundByTaskId.getStatus() == TaskAssignment.Status.DONE) {
-            throw new InvalidOperationException("Cannot assign employee to a completed task");
-        }
-
         taskAssignment.setTask(task);
         taskAssignment.setEmployee(employee);
-        taskAssignmentRepository.save(taskAssignment);
 
+        if (taskAssignment.getStatus() == null) {
+            taskAssignment.setStatus(TaskAssignment.Status.TODO);
+        }
+
+        TaskAssignment savedTaskAssignment = taskAssignmentRepository.save(taskAssignment);
+
+        return taskAssignmentMapper.toDTO(savedTaskAssignment);
+    }
+
+    public RespondTaskAssignmentDTO getTaskAssignmentById(Long id) {
+        TaskAssignment taskAssignment = findTaskAssignmentById(id);
         return taskAssignmentMapper.toDTO(taskAssignment);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    ///  Get by id
-    public RespondTaskAssignmentDTO getTaskAssignmentById (Long id){
-
-        TaskAssignment taskAssignment = taskAssignmentRepository.findById(id)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Task not found"));
-
-        return  taskAssignmentMapper.toDTO(taskAssignment);
+    public List<RespondTaskAssignmentDTO> getAllTaskAssignments() {
+        List<TaskAssignment> taskAssignments = taskAssignmentRepository.findAll();
+        return taskAssignmentMapper.toDTOList(taskAssignments);
     }
 
+    @Transactional
+    public RespondTaskAssignmentDTO updateTaskAssignments(RequestUpdateTaskAssignmentDTO dto) {
+        TaskAssignment oldTaskAssignment = findTaskAssignmentById(dto.getOldTaskAssignmentId());
+        Task task = findTaskById(dto.getTaskId());
+        Employee employee = findEmployeeById(dto.getEmployeeId());
 
-    ///  Get all
-    public List<RespondTaskAssignmentDTO> getAllTaskAssignments (){
+        validateDeadlineIsPresent(dto.getDeadline());
+        validateDeadlineIsNotInPast(dto.getDeadline());
+        validateDeadlineIsNotBeforeTaskCreatedDate(task, dto.getDeadline());
 
-        List<TaskAssignment> taskAssignmentList = taskAssignmentRepository.findAll();
-        return  taskAssignmentMapper.toDTOList(taskAssignmentList);
-    }
+        boolean employeeAlreadyAssignedToTask =
+                taskAssignmentRepository.existsByTask_IdAndEmployee_IdAndIdNot(
+                        task.getId(),
+                        employee.getId(),
+                        oldTaskAssignment.getId()
+                );
 
-
-
-
-
-    ///  Update TaskAssignment
-    public RespondTaskAssignmentDTO updateTaskAssignments (RequestUpdateTaskAssignmentDTO dto){
-
-
-        if (dto.getDeadline().isBefore(LocalDate.now())){
-            throw new BusinessValidationException ("Deadline has to be in the future");
+        if (employeeAlreadyAssignedToTask) {
+            throw new DuplicateResourceException("Employee is already assigned to this task");
         }
 
+        TaskAssignment updatedTaskAssignment =
+                taskAssignmentMapper.updateEntity(oldTaskAssignment, dto);
 
-        TaskAssignment oldTaskAssignment = taskAssignmentRepository.findById(dto.getOldTaskAssignmentId())
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("TaskAssignment not found"));
-
-        Employee employee = employeeRepository.findById(dto.getEmployeeId())
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Employee not found"));
-
-
-        if (taskAssignmentRepository.existsByNameAndAndDeadline(
-                dto.getName(),
-                dto.getDeadline())
-                &&
-                (!oldTaskAssignment.getName().equals(dto.getName())
-                        ||
-                        !oldTaskAssignment.getDeadline().equals(dto.getDeadline()))
-        ) {
-
-            throw new DuplicateResourceException("TaskAssignment already exists");
-        }
-
-
-        Task task = taskRepository.findById(dto.getTaskId())
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Task not found"));
-
-
-
-        if (dto.getStatus().equals("DONE") && dto.getDeadline() != null) {
-            
-            if (task.getCreatedDateTask().isAfter(dto.getDeadline())
-                    || LocalDate.now().isAfter(dto.getDeadline())) {
-
-                throw new InvalidOperationException("Deadline is before created time");
-            }
-        }
-
-
-
-
-
-        TaskAssignment updatedTaskAssignment = taskAssignmentMapper.updateEntity(oldTaskAssignment, dto);
         updatedTaskAssignment.setTask(task);
         updatedTaskAssignment.setEmployee(employee);
-        taskAssignmentRepository.save(updatedTaskAssignment);
 
-        return taskAssignmentMapper.toDTO(updatedTaskAssignment);
+        TaskAssignment savedTaskAssignment =
+                taskAssignmentRepository.save(updatedTaskAssignment);
+
+        return taskAssignmentMapper.toDTO(savedTaskAssignment);
     }
 
-
-
-
-
-    ///  Delete by id
-    public void deleteTaskAssignmentById (Long id){
-
-        TaskAssignment taskAssignment = taskAssignmentRepository.findById(id)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Task not found"));
-        taskAssignmentRepository.deleteById(id);
+    @Transactional
+    public void deleteTaskAssignmentById(Long id) {
+        TaskAssignment taskAssignment = findTaskAssignmentById(id);
+        taskAssignmentRepository.delete(taskAssignment);
     }
-
-
-
-
 
     @Transactional
     @Scheduled(fixedRate = 300000)
     public void markOverdueTaskAssignments() {
-        List<TaskAssignment> taskAssignmentList = taskAssignmentRepository.findAll();
-        for (TaskAssignment taskAssignment : taskAssignmentList) {
-            if (taskAssignment.getDeadline().isBefore(LocalDate.now()) && taskAssignment.getStatus() != TaskAssignment.Status.OVERDUE) {
+        List<TaskAssignment> taskAssignments = taskAssignmentRepository.findAll();
+
+        for (TaskAssignment taskAssignment : taskAssignments) {
+            if (taskAssignment.getDeadline() == null) {
+                continue;
+            }
+
+            boolean deadlineIsInPast = taskAssignment.getDeadline().isBefore(LocalDate.now());
+            boolean isDone = taskAssignment.getStatus() == TaskAssignment.Status.DONE;
+            boolean isAlreadyOverdue = taskAssignment.getStatus() == TaskAssignment.Status.OVERDUE;
+
+            if (deadlineIsInPast && !isDone && !isAlreadyOverdue) {
                 taskAssignment.setStatus(TaskAssignment.Status.OVERDUE);
-                taskAssignmentRepository.save(taskAssignment);
             }
         }
     }
 
+    private Task findTaskById(Long id) {
+        return taskRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Task not found"));
+    }
 
+    private Employee findEmployeeById(Long id) {
+        return employeeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
+    }
 
+    private TaskAssignment findTaskAssignmentById(Long id) {
+        return taskAssignmentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("TaskAssignment not found"));
+    }
 
+    private void validateDeadlineIsPresent(LocalDate deadline) {
+        if (deadline == null) {
+            throw new BusinessValidationException("Deadline is required");
+        }
+    }
 
+    private void validateDeadlineIsNotInPast(LocalDate deadline) {
+        if (deadline.isBefore(LocalDate.now())) {
+            throw new BusinessValidationException("Deadline has to be today or in the future");
+        }
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    private void validateDeadlineIsNotBeforeTaskCreatedDate(Task task, LocalDate deadline) {
+        if (task.getCreatedDateTask().isAfter(deadline)) {
+            throw new InvalidOperationException("Deadline cannot be before task creation date");
+        }
+    }
 }

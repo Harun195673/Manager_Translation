@@ -3,6 +3,7 @@ import lombok.RequiredArgsConstructor;
 import management_workflow_api.DTO.WebUser.WebUserResponseDTO;
 import management_workflow_api.Entity.WebUser;
 import management_workflow_api.Service.WebUserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,7 +39,8 @@ public class WebUserController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         webUserService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

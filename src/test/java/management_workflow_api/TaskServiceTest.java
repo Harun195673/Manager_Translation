@@ -1,6 +1,5 @@
 package management_workflow_api;
 
-
 import management_workflow_api.DTO.TaskDTO.RequestTaskDTO;
 import management_workflow_api.DTO.TaskDTO.TaskMapper;
 import management_workflow_api.Entity.Manager;
@@ -21,7 +20,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -90,30 +89,34 @@ class TaskServiceTest {
 
     @Test
     void updateTask_shouldThrowInvalidOperationException_whenTaskIsAlreadyDone() {
-
         Long taskId = 1L;
 
         RequestTaskDTO dto = new RequestTaskDTO();
         dto.setTitle("New title");
         dto.setMessage("New message");
         dto.setManagerId(1L);
-        dto.setTaskAssignmentId(1L);
 
         Task task = new Task();
-        task.setId(1L);
-
-        TaskAssignment taskAssignment = new TaskAssignment();
-        taskAssignment.setStatus(TaskAssignment.Status.DONE);
-        taskAssignment.setId(1L);
+        task.setId(taskId);
+        task.setTitle("Old title");
+        task.setMessage("Old message");
 
         Manager manager = new Manager();
         manager.setId(1L);
 
-        when(taskRepository.findById(1L)).thenReturn(Optional.of(task));
-        when(taskAssignmentRepository.findById(1L)).thenReturn(Optional.of(taskAssignment));
-        when(taskAssignmentRepository.findByTaskId(1L))
-                .thenReturn(taskAssignment);
-        when(managerRepository.findById(1L)).thenReturn(Optional.of(manager));
+        when(taskRepository.findById(taskId))
+                .thenReturn(Optional.of(task));
+
+        when(taskRepository.existsByTitleAndMessage("New title", "New message"))
+                .thenReturn(false);
+
+        when(managerRepository.findById(1L))
+                .thenReturn(Optional.of(manager));
+
+        when(taskAssignmentRepository.existsByTaskIdAndStatus(
+                taskId,
+                TaskAssignment.Status.DONE
+        )).thenReturn(true);
 
         assertThrows(InvalidOperationException.class, () -> {
             taskService.updateTask(dto, taskId);

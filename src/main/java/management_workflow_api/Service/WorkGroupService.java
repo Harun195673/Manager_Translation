@@ -74,24 +74,20 @@ public class WorkGroupService {
 
 
     /// UPDATE
-    public RespondWorkGroupDTO updateWorkGroup(Long id,
-                                               RequestWorkGroupDTO dto) {
-
-
+    public RespondWorkGroupDTO updateWorkGroup(Long id, RequestWorkGroupDTO dto) {
 
         WorkGroup workGroup = workGroupRepository.findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException("WorkGroup not found"));
 
-        workGroup.setName(dto.getName());
-
         if (workGroupRepository.existsByName(dto.getName())
-                && !workGroup.getName().equals(dto.getName())){
+                && !workGroup.getName().equals(dto.getName())) {
             throw new DuplicateResourceException("Workgroup already exists");
         }
 
-        if (dto.getManagerId() != null) {
+        workGroup.setName(dto.getName());
 
+        if (dto.getManagerId() != null) {
             Manager manager = managerRepository.findById(dto.getManagerId())
                     .orElseThrow(() ->
                             new ResourceNotFoundException("Manager not found"));

@@ -1,9 +1,7 @@
 package management_workflow_api.Controller;
 
 import management_workflow_api.DTO.ManagerDTO.RequestManagerDTO;
-import management_workflow_api.DTO.ManagerDTO.RequestWorkFlowDTO;
 import management_workflow_api.DTO.ManagerDTO.RespondManagerDTO;
-import management_workflow_api.DTO.TaskAssignmentDTO.RespondTaskAssignmentDTO;
 import management_workflow_api.Service.ManagerService;
 import jakarta.validation.Valid;
 import org.springframework.validation.annotation.Validated;
@@ -53,15 +51,6 @@ public class ManagerController {
         managerService.deleteManager(id);
     }
 
-
-
-
-    @PostMapping("/translate_and_assign")
-    public List<RespondTaskAssignmentDTO> executeTaskWorkflow(
-            @Valid @RequestBody RequestWorkFlowDTO workFlowDto) {
-
-        return managerService.taskTranslationWorkflow(workFlowDto);
-    }
 
 
 

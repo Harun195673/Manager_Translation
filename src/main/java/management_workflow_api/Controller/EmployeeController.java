@@ -46,8 +46,10 @@ public class EmployeeController {
     }
 
     // GET ALL
-    @GetMapping("/filter/{language}")
-    public List<RespondEmployeeDTO> filterEmployeesByStatus(@PathVariable Employee.Language language) {
+    @GetMapping("/language/{language}")
+    public List<RespondEmployeeDTO> filterEmployeesByLanguage(
+            @PathVariable Employee.Language language) {
+
         return employeeService.getEmployeesByLanguage(language);
     }
 

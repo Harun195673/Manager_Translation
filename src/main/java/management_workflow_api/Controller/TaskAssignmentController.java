@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/taskAssignments")
 public class TaskAssignmentController {
 
-    TaskAssignmentService taskAssignmentService;
+    private final TaskAssignmentService taskAssignmentService;
 
     public TaskAssignmentController(TaskAssignmentService taskAssignmentService) {
         this.taskAssignmentService = taskAssignmentService;

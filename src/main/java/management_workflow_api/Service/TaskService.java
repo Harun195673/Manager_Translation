@@ -9,14 +9,13 @@ import management_workflow_api.Entity.TaskAssignment;
 import management_workflow_api.Exceptions.DuplicateResourceException;
 import management_workflow_api.Exceptions.InvalidOperationException;
 import management_workflow_api.Exceptions.ResourceNotFoundException;
+import management_workflow_api.Repository.ManagerRepository;
 import management_workflow_api.Repository.TaskAssignmentRepository;
 import management_workflow_api.Repository.TaskRepository;
-import management_workflow_api.Repository.ManagerRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 
 @Service
 public class TaskService {
@@ -24,7 +23,7 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private final ManagerRepository managerRepository;
     private final TaskMapper taskMapper;
-    TaskAssignmentRepository taskAssignmentRepository;
+    private final TaskAssignmentRepository taskAssignmentRepository;
 
     public TaskService(TaskRepository taskRepository,
                        ManagerRepository managerRepository,
@@ -36,11 +35,9 @@ public class TaskService {
         this.taskAssignmentRepository = taskAssignmentRepository;
     }
 
+    public RespondTaskDTO createTask(RequestTaskDTO dto) {
 
-    public RespondTaskDTO createTask(RequestTaskDTO dto){
-
-
-        if (taskRepository.existsByTitleAndMessage(dto.getTitle(), dto.getMessage())){
+        if (taskRepository.existsByTitleAndMessage(dto.getTitle(), dto.getMessage())) {
             throw new DuplicateResourceException("Task already exists. Create a different Task");
         }
 
@@ -48,69 +45,63 @@ public class TaskService {
                 .orElseThrow(() -> new ResourceNotFoundException("Manager not found"));
 
         Task task = taskMapper.toEntity(dto, manager);
-        taskRepository.save(task);
 
-        return taskMapper.toRespondDTO(task);
+        Task savedTask = taskRepository.save(task);
+
+        return taskMapper.toRespondDTO(savedTask);
     }
 
-
-
-
-
-
-    public List<RespondTaskDTO> getAllTasks(){
+    public List<RespondTaskDTO> getAllTasks() {
 
         List<Task> taskList = taskRepository.findAll();
+
         return taskMapper.respondTaskDTOList(taskList);
     }
 
+    public RespondTaskDTO getTaskById(Long id) {
 
+        Task task = getTaskOrThrow(id);
 
-    public RespondTaskDTO getTaskById(Long id){
-        Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Task not found"));
         return taskMapper.toRespondDTO(task);
     }
 
+    public void deleteTask(Long id) {
 
+        Task task = getTaskOrThrow(id);
 
-    public void deleteTask(Long id){
-        if(!taskRepository.existsById(id)){
-            throw new ResourceNotFoundException("Task not found");
-        }
-        taskRepository.deleteById(id);
+        taskRepository.delete(task);
     }
-
 
     @Transactional
     public RespondTaskDTO updateTask(RequestTaskDTO dto, Long taskId) {
 
+        Task task = getTaskOrThrow(taskId);
 
+        boolean duplicateExists = taskRepository.existsByTitleAndMessage(
+                dto.getTitle(),
+                dto.getMessage()
+        );
 
-        Task task = taskRepository.findById(taskId)
-                .orElseThrow(() -> new ResourceNotFoundException("Task not found"));
+        boolean taskValuesChanged =
+                !task.getTitle().equals(dto.getTitle())
+                        || !task.getMessage().equals(dto.getMessage());
 
-        if (taskRepository.existsByTitleAndMessage(dto.getTitle(), dto.getMessage())
-                && (!task.getTitle().equals(dto.getTitle())
-                || !task.getMessage().equals(dto.getMessage()))) {
+        if (duplicateExists && taskValuesChanged) {
             throw new DuplicateResourceException("Task already exists. Use different values");
         }
 
         Manager manager = managerRepository.findById(dto.getManagerId())
                 .orElseThrow(() -> new ResourceNotFoundException("Manager not found"));
 
-        TaskAssignment taskAssignment = taskAssignmentRepository.findById(dto.getTaskAssignmentId())
-                .orElseThrow(() -> new ResourceNotFoundException("TaskAssignment not found"));
+        boolean hasCompletedAssignment =
+                taskAssignmentRepository.existsByTaskIdAndStatus(
+                        task.getId(),
+                        TaskAssignment.Status.DONE
+                );
 
-        if (taskAssignmentRepository.findByTaskId(task.getId()).getStatus()
-                == TaskAssignment.Status.DONE) {
+        if (hasCompletedAssignment) {
             throw new InvalidOperationException("Cannot edit completed Task");
         }
-
-
-
-
-
 
         task.setTitle(dto.getTitle());
         task.setMessage(dto.getMessage());
@@ -118,11 +109,11 @@ public class TaskService {
 
         Task savedTask = taskRepository.save(task);
 
-        taskAssignment.setTask(savedTask);
-        taskAssignmentRepository.save(taskAssignment);
-
         return taskMapper.toRespondDTO(savedTask);
     }
 
-
+    private Task getTaskOrThrow(Long taskId) {
+        return taskRepository.findById(taskId)
+                .orElseThrow(() -> new ResourceNotFoundException("Task not found"));
+    }
 }
