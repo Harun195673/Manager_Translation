@@ -1,6 +1,6 @@
-package management_workflow_api.Repository;
+package ServiceTests.Repository;
 
-import management_workflow_api.Entity.Task;
+import ServiceTests.Entity.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TaskRepository extends JpaRepository <Task, Long> {

@@ -1,4 +1,4 @@
-package management_workflow_api;
+package ServiceTests;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

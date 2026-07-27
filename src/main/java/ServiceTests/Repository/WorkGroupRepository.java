@@ -1,6 +1,6 @@
-package management_workflow_api.Repository;
+package ServiceTests.Repository;
 
-import management_workflow_api.Entity.WorkGroup;
+import ServiceTests.Entity.WorkGroup;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface WorkGroupRepository extends JpaRepository<WorkGroup, Long> {

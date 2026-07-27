@@ -1,11 +1,13 @@
 package JpaDataTests;
 
 import ServiceTests.Entity.*;
+import ServiceTests.FirstApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.ContextConfiguration;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest(
         excludeAutoConfiguration = JpaRepositoriesAutoConfiguration.class
 )
+@ContextConfiguration(classes = FirstApplication.class)
 class EntityJpaTest {
 
     @Autowired

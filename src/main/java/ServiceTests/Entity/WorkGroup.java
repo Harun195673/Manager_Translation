@@ -1,6 +1,6 @@
-package management_workflow_api.Entity;
+package ServiceTests.Entity;
 
-import management_workflow_api.DTO.WorkgroupDTO.RequestWorkGroupDTO;
+import ServiceTests.DTO.WorkgroupDTO.RequestWorkGroupDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

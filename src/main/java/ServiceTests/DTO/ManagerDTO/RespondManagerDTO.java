@@ -1,6 +1,6 @@
-package management_workflow_api.DTO.ManagerDTO;
+package ServiceTests.DTO.ManagerDTO;
 
-import management_workflow_api.Entity.Manager;
+import ServiceTests.Entity.Manager;
 import lombok.Getter;
 import lombok.Setter;
 

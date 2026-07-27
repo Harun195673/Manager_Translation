@@ -1,16 +1,16 @@
-package management_workflow_api;
+package ServiceTests;
 
 
-import management_workflow_api.DTO.WorkgroupDTO.RequestWorkGroupDTO;
-import management_workflow_api.DTO.WorkgroupDTO.WorkGroupMapper;
-import management_workflow_api.Entity.Employee;
-import management_workflow_api.Entity.WorkGroup;
-import management_workflow_api.Exceptions.DuplicateResourceException;
-import management_workflow_api.Exceptions.InvalidOperationException;
-import management_workflow_api.Exceptions.ResourceNotFoundException;
-import management_workflow_api.Repository.ManagerRepository;
-import management_workflow_api.Repository.WorkGroupRepository;
-import management_workflow_api.Service.WorkGroupService;
+import ServiceTests.DTO.WorkgroupDTO.RequestWorkGroupDTO;
+import ServiceTests.DTO.WorkgroupDTO.WorkGroupMapper;
+import ServiceTests.Entity.Employee;
+import ServiceTests.Entity.WorkGroup;
+import ServiceTests.Exceptions.DuplicateResourceException;
+import ServiceTests.Exceptions.InvalidOperationException;
+import ServiceTests.Exceptions.ResourceNotFoundException;
+import ServiceTests.Repository.ManagerRepository;
+import ServiceTests.Repository.WorkGroupRepository;
+import ServiceTests.Service.WorkGroupService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

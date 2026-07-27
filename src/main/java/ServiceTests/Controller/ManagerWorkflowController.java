@@ -1,9 +1,9 @@
-package management_workflow_api.Controller;
+package ServiceTests.Controller;
 
 import jakarta.validation.Valid;
-import management_workflow_api.DTO.ManagerDTO.RequestWorkFlowDTO;
-import management_workflow_api.DTO.TaskAssignmentDTO.RespondTaskAssignmentDTO;
-import management_workflow_api.Service.ManagerWorkflowService;
+import ServiceTests.DTO.ManagerDTO.RequestWorkFlowDTO;
+import ServiceTests.DTO.TaskAssignmentDTO.RespondTaskAssignmentDTO;
+import ServiceTests.Service.ManagerWorkflowService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

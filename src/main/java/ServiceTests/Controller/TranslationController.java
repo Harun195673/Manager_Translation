@@ -1,8 +1,8 @@
-package management_workflow_api.Controller;
+package ServiceTests.Controller;
 
 import jakarta.validation.Valid;
-import management_workflow_api.DTO.TranslationDTO.RequestTranslationDTO;
-import management_workflow_api.Service.TranslationService;
+import ServiceTests.DTO.TranslationDTO.RequestTranslationDTO;
+import ServiceTests.Service.TranslationService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

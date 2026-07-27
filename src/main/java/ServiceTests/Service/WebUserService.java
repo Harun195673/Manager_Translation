@@ -1,10 +1,10 @@
-package management_workflow_api.Service;
+package ServiceTests.Service;
 
 import lombok.RequiredArgsConstructor;
-import management_workflow_api.DTO.WebUser.WebUserMapper;
-import management_workflow_api.DTO.WebUser.WebUserResponseDTO;
-import management_workflow_api.Entity.WebUser;
-import management_workflow_api.Repository.WebUserRepository;
+import ServiceTests.DTO.WebUser.WebUserMapper;
+import ServiceTests.DTO.WebUser.WebUserResponseDTO;
+import ServiceTests.Entity.WebUser;
+import ServiceTests.Repository.WebUserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

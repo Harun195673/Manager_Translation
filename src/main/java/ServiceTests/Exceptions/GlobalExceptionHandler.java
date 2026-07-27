@@ -1,4 +1,4 @@
-package management_workflow_api.Exceptions;
+package ServiceTests.Exceptions;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;

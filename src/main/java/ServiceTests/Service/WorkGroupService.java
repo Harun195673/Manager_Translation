@@ -1,16 +1,16 @@
-package management_workflow_api.Service;
+package ServiceTests.Service;
 
 
-import management_workflow_api.DTO.WorkgroupDTO.RequestWorkGroupDTO;
-import management_workflow_api.DTO.WorkgroupDTO.RespondWorkGroupDTO;
-import management_workflow_api.DTO.WorkgroupDTO.WorkGroupMapper;
-import management_workflow_api.Entity.Manager;
-import management_workflow_api.Entity.WorkGroup;
-import management_workflow_api.Exceptions.DuplicateResourceException;
-import management_workflow_api.Exceptions.InvalidOperationException;
-import management_workflow_api.Exceptions.ResourceNotFoundException;
-import management_workflow_api.Repository.ManagerRepository;
-import management_workflow_api.Repository.WorkGroupRepository;
+import ServiceTests.DTO.WorkgroupDTO.RequestWorkGroupDTO;
+import ServiceTests.DTO.WorkgroupDTO.RespondWorkGroupDTO;
+import ServiceTests.DTO.WorkgroupDTO.WorkGroupMapper;
+import ServiceTests.Entity.Manager;
+import ServiceTests.Entity.WorkGroup;
+import ServiceTests.Exceptions.DuplicateResourceException;
+import ServiceTests.Exceptions.InvalidOperationException;
+import ServiceTests.Exceptions.ResourceNotFoundException;
+import ServiceTests.Repository.ManagerRepository;
+import ServiceTests.Repository.WorkGroupRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

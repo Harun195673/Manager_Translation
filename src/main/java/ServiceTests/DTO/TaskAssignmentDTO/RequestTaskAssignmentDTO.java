@@ -1,4 +1,4 @@
-package management_workflow_api.DTO.TaskAssignmentDTO;
+package ServiceTests.DTO.TaskAssignmentDTO;
 
 
 import jakarta.validation.constraints.Future;

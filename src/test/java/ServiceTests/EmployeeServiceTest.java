@@ -1,9 +1,9 @@
-package management_workflow_api;
+package ServiceTests;
 
-import management_workflow_api.DTO.EmployeeDTO.EmployeeMapper;
-import management_workflow_api.Exceptions.DuplicateResourceException;
-import management_workflow_api.Exceptions.ResourceNotFoundException;
-import management_workflow_api.Service.EmployeeService;
+import ServiceTests.DTO.EmployeeDTO.EmployeeMapper;
+import ServiceTests.Exceptions.DuplicateResourceException;
+import ServiceTests.Exceptions.ResourceNotFoundException;
+import ServiceTests.Service.EmployeeService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,11 +11,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 
-import management_workflow_api.DTO.EmployeeDTO.RequestEmployeeDTO;
-import management_workflow_api.Entity.Employee;
-import management_workflow_api.Repository.EmployeeRepository;
-import management_workflow_api.Repository.TaskAssignmentRepository;
-import management_workflow_api.Repository.WorkGroupRepository;
+import ServiceTests.DTO.EmployeeDTO.RequestEmployeeDTO;
+import ServiceTests.Entity.Employee;
+import ServiceTests.Repository.EmployeeRepository;
+import ServiceTests.Repository.TaskAssignmentRepository;
+import ServiceTests.Repository.WorkGroupRepository;
 
 import java.util.Optional;
 

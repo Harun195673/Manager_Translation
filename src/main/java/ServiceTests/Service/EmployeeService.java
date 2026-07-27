@@ -1,18 +1,18 @@
-package management_workflow_api.Service;
+package ServiceTests.Service;
 
 import jakarta.transaction.Transactional;
-import management_workflow_api.DTO.EmployeeDTO.EmployeeMapper;
-import management_workflow_api.DTO.EmployeeDTO.RequestEmployeeDTO;
-import management_workflow_api.DTO.EmployeeDTO.RespondEmployeeDTO;
-import management_workflow_api.DTO.EmployeeDTO.UpdateEmployeeDTO;
-import management_workflow_api.DTO.WebUser.WebUserMapper;
-import management_workflow_api.Entity.Employee;
-import management_workflow_api.Entity.WebUser;
-import management_workflow_api.Entity.WorkGroup;
-import management_workflow_api.Exceptions.DuplicateResourceException;
-import management_workflow_api.Exceptions.ResourceNotFoundException;
-import management_workflow_api.Repository.EmployeeRepository;
-import management_workflow_api.Repository.WorkGroupRepository;
+import ServiceTests.DTO.EmployeeDTO.EmployeeMapper;
+import ServiceTests.DTO.EmployeeDTO.RequestEmployeeDTO;
+import ServiceTests.DTO.EmployeeDTO.RespondEmployeeDTO;
+import ServiceTests.DTO.EmployeeDTO.UpdateEmployeeDTO;
+import ServiceTests.DTO.WebUser.WebUserMapper;
+import ServiceTests.Entity.Employee;
+import ServiceTests.Entity.WebUser;
+import ServiceTests.Entity.WorkGroup;
+import ServiceTests.Exceptions.DuplicateResourceException;
+import ServiceTests.Exceptions.ResourceNotFoundException;
+import ServiceTests.Repository.EmployeeRepository;
+import ServiceTests.Repository.WorkGroupRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

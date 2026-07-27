@@ -1,6 +1,6 @@
-package management_workflow_api.Repository;
+package ServiceTests.Repository;
 
-import management_workflow_api.Entity.TaskAssignment;
+import ServiceTests.Entity.TaskAssignment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;

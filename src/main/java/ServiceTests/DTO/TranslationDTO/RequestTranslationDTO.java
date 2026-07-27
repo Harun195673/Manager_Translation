@@ -1,8 +1,8 @@
-package management_workflow_api.DTO.TranslationDTO;
+package ServiceTests.DTO.TranslationDTO;
 
 import lombok.Getter;
 import lombok.Setter;
-import management_workflow_api.Entity.Employee;
+import ServiceTests.Entity.Employee;
 
 @Getter
 @Setter

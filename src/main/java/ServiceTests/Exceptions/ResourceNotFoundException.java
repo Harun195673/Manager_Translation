@@ -1,4 +1,4 @@
-package management_workflow_api.Exceptions;
+package ServiceTests.Exceptions;
 
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String message) {

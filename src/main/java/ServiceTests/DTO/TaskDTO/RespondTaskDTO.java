@@ -1,4 +1,4 @@
-package management_workflow_api.DTO.TaskDTO;
+package ServiceTests.DTO.TaskDTO;
 
 import lombok.Getter;
 import lombok.Setter;

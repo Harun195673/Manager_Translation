@@ -1,4 +1,4 @@
-package management_workflow_api.Entity;
+package ServiceTests.Entity;
 
 
 import jakarta.persistence.*;

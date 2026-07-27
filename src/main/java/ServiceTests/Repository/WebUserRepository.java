@@ -1,6 +1,6 @@
-package management_workflow_api.Repository;
+package ServiceTests.Repository;
 
-import management_workflow_api.Entity.WebUser;
+import ServiceTests.Entity.WebUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

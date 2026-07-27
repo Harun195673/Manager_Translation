@@ -1,7 +1,7 @@
-package management_workflow_api.DTO.EmployeeDTO;
+package ServiceTests.DTO.EmployeeDTO;
 
-import management_workflow_api.Entity.Employee;
-import management_workflow_api.Entity.WorkGroup;
+import ServiceTests.Entity.Employee;
+import ServiceTests.Entity.WorkGroup;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

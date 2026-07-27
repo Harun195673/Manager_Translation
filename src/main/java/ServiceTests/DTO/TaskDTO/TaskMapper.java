@@ -1,7 +1,7 @@
-package management_workflow_api.DTO.TaskDTO;
+package ServiceTests.DTO.TaskDTO;
 
-import management_workflow_api.Entity.Task;
-import management_workflow_api.Entity.Manager;
+import ServiceTests.Entity.Task;
+import ServiceTests.Entity.Manager;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;

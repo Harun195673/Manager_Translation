@@ -1,10 +1,8 @@
-package management_workflow_api.DTO.WebUser;
+package ServiceTests.DTO.WebUser;
 
-import management_workflow_api.DTO.EmployeeDTO.RequestEmployeeDTO;
-import management_workflow_api.DTO.ManagerDTO.RequestManagerDTO;
-import management_workflow_api.Entity.Employee;
-import management_workflow_api.Entity.Manager;
-import management_workflow_api.Entity.WebUser;
+import ServiceTests.DTO.EmployeeDTO.RequestEmployeeDTO;
+import ServiceTests.DTO.ManagerDTO.RequestManagerDTO;
+import ServiceTests.Entity.WebUser;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -1,20 +1,20 @@
-package management_workflow_api.Service;
+package ServiceTests.Service;
 
-import management_workflow_api.DTO.ManagerDTO.RequestWorkFlowDTO;
-import management_workflow_api.DTO.TaskAssignmentDTO.RequestTaskAssignmentDTO;
-import management_workflow_api.DTO.TaskAssignmentDTO.RespondTaskAssignmentDTO;
-import management_workflow_api.DTO.TaskAssignmentDTO.TaskAssignmentMapper;
-import management_workflow_api.DTO.TaskDTO.TaskMapper;
-import management_workflow_api.DTO.WorkgroupDTO.WorkGroupMapper;
-import management_workflow_api.Entity.Employee;
-import management_workflow_api.Entity.Manager;
-import management_workflow_api.Entity.Task;
-import management_workflow_api.Entity.WorkGroup;
-import management_workflow_api.Exceptions.InvalidOperationException;
-import management_workflow_api.Exceptions.ResourceNotFoundException;
-import management_workflow_api.Repository.ManagerRepository;
-import management_workflow_api.Repository.TaskRepository;
-import management_workflow_api.Repository.WorkGroupRepository;
+import ServiceTests.DTO.ManagerDTO.RequestWorkFlowDTO;
+import ServiceTests.DTO.TaskAssignmentDTO.RequestTaskAssignmentDTO;
+import ServiceTests.DTO.TaskAssignmentDTO.RespondTaskAssignmentDTO;
+import ServiceTests.DTO.TaskAssignmentDTO.TaskAssignmentMapper;
+import ServiceTests.DTO.TaskDTO.TaskMapper;
+import ServiceTests.DTO.WorkgroupDTO.WorkGroupMapper;
+import ServiceTests.Entity.Employee;
+import ServiceTests.Entity.Manager;
+import ServiceTests.Entity.Task;
+import ServiceTests.Entity.WorkGroup;
+import ServiceTests.Exceptions.InvalidOperationException;
+import ServiceTests.Exceptions.ResourceNotFoundException;
+import ServiceTests.Repository.ManagerRepository;
+import ServiceTests.Repository.TaskRepository;
+import ServiceTests.Repository.WorkGroupRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

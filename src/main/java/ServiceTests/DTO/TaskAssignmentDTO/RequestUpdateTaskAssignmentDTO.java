@@ -1,6 +1,6 @@
-package management_workflow_api.DTO.TaskAssignmentDTO;
+package ServiceTests.DTO.TaskAssignmentDTO;
 
-import management_workflow_api.Entity.TaskAssignment;
+import ServiceTests.Entity.TaskAssignment;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

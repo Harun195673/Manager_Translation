@@ -1,8 +1,8 @@
-package management_workflow_api.Service;
+package ServiceTests.Service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import management_workflow_api.Entity.Employee;
+import ServiceTests.Entity.Employee;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;

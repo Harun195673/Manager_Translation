@@ -1,7 +1,7 @@
-package management_workflow_api.Repository;
-import management_workflow_api.Entity.Manager;
+package ServiceTests.Repository;
+import ServiceTests.Entity.Manager;
 
-import management_workflow_api.Entity.WorkGroup;
+import ServiceTests.Entity.WorkGroup;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

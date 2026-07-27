@@ -1,8 +1,8 @@
-package management_workflow_api.Controller;
+package ServiceTests.Controller;
 import lombok.RequiredArgsConstructor;
-import management_workflow_api.DTO.WebUser.WebUserResponseDTO;
-import management_workflow_api.Entity.WebUser;
-import management_workflow_api.Service.WebUserService;
+import ServiceTests.DTO.WebUser.WebUserResponseDTO;
+import ServiceTests.Entity.WebUser;
+import ServiceTests.Service.WebUserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

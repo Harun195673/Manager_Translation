@@ -1,9 +1,9 @@
-package management_workflow_api.Security;
+package ServiceTests.Security;
 
 
 import lombok.RequiredArgsConstructor;
-import management_workflow_api.Entity.WebUser;
-import management_workflow_api.Repository.WebUserRepository;
+import ServiceTests.Entity.WebUser;
+import ServiceTests.Repository.WebUserRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,4 +1,4 @@
-package management_workflow_api.DTO.WorkgroupDTO;
+package ServiceTests.DTO.WorkgroupDTO;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

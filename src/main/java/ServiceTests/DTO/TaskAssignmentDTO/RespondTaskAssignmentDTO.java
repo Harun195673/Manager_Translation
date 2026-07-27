@@ -1,6 +1,6 @@
-package management_workflow_api.DTO.TaskAssignmentDTO;
+package ServiceTests.DTO.TaskAssignmentDTO;
 
-import management_workflow_api.Entity.TaskAssignment;
+import ServiceTests.Entity.TaskAssignment;
 import lombok.Getter;
 import lombok.Setter;
 

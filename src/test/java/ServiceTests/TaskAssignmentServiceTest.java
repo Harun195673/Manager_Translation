@@ -1,15 +1,15 @@
-package management_workflow_api;
+package ServiceTests;
 
-import management_workflow_api.DTO.TaskAssignmentDTO.RequestTaskAssignmentDTO;
-import management_workflow_api.DTO.TaskAssignmentDTO.TaskAssignmentMapper;
-import management_workflow_api.Entity.Employee;
-import management_workflow_api.Entity.Task;
-import management_workflow_api.Exceptions.InvalidOperationException;
-import management_workflow_api.Exceptions.ResourceNotFoundException;
-import management_workflow_api.Repository.EmployeeRepository;
-import management_workflow_api.Repository.TaskAssignmentRepository;
-import management_workflow_api.Repository.TaskRepository;
-import management_workflow_api.Service.TaskAssignmentService;
+import ServiceTests.DTO.TaskAssignmentDTO.RequestTaskAssignmentDTO;
+import ServiceTests.DTO.TaskAssignmentDTO.TaskAssignmentMapper;
+import ServiceTests.Entity.Employee;
+import ServiceTests.Entity.Task;
+import ServiceTests.Exceptions.InvalidOperationException;
+import ServiceTests.Exceptions.ResourceNotFoundException;
+import ServiceTests.Repository.EmployeeRepository;
+import ServiceTests.Repository.TaskAssignmentRepository;
+import ServiceTests.Repository.TaskRepository;
+import ServiceTests.Service.TaskAssignmentService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -1,4 +1,4 @@
-package management_workflow_api.DTO.WebUser;
+package ServiceTests.DTO.WebUser;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

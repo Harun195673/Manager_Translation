@@ -1,9 +1,9 @@
-package management_workflow_api.DTO.TaskAssignmentDTO;
+package ServiceTests.DTO.TaskAssignmentDTO;
 
-import management_workflow_api.DTO.ManagerDTO.RequestWorkFlowDTO;
-import management_workflow_api.Entity.Employee;
-import management_workflow_api.Entity.Task;
-import management_workflow_api.Entity.TaskAssignment;
+import ServiceTests.DTO.ManagerDTO.RequestWorkFlowDTO;
+import ServiceTests.Entity.Employee;
+import ServiceTests.Entity.Task;
+import ServiceTests.Entity.TaskAssignment;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;

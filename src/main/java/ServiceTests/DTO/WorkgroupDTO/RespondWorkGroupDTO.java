@@ -1,6 +1,6 @@
-package management_workflow_api.DTO.WorkgroupDTO;
+package ServiceTests.DTO.WorkgroupDTO;
 
-import management_workflow_api.Entity.WorkGroup;
+import ServiceTests.Entity.WorkGroup;
 import lombok.Getter;
 import lombok.Setter;
 

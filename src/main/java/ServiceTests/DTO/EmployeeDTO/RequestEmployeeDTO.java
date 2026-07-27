@@ -1,6 +1,6 @@
-package management_workflow_api.DTO.EmployeeDTO;
+package ServiceTests.DTO.EmployeeDTO;
 
-import management_workflow_api.Entity.Employee;
+import ServiceTests.Entity.Employee;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

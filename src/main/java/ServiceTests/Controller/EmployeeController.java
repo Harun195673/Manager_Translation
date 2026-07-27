@@ -1,10 +1,10 @@
-package management_workflow_api.Controller;
+package ServiceTests.Controller;
 
-import management_workflow_api.DTO.EmployeeDTO.RequestEmployeeDTO;
-import management_workflow_api.DTO.EmployeeDTO.RespondEmployeeDTO;
-import management_workflow_api.DTO.EmployeeDTO.UpdateEmployeeDTO;
-import management_workflow_api.Entity.Employee;
-import management_workflow_api.Service.EmployeeService;
+import ServiceTests.DTO.EmployeeDTO.RequestEmployeeDTO;
+import ServiceTests.DTO.EmployeeDTO.RespondEmployeeDTO;
+import ServiceTests.DTO.EmployeeDTO.UpdateEmployeeDTO;
+import ServiceTests.Entity.Employee;
+import ServiceTests.Service.EmployeeService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package management_workflow_api.DTO.ManagerDTO;
+package ServiceTests.DTO.ManagerDTO;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package management_workflow_api.Exceptions;
+package ServiceTests.Exceptions;
 
 public class ForbiddenOperationException extends RuntimeException {
     public ForbiddenOperationException(String message) {

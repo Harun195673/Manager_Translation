@@ -1,8 +1,8 @@
-package management_workflow_api;
+package ServiceTests;
 
 
 import jakarta.servlet.http.HttpServletRequest;
-import management_workflow_api.Exceptions.*;
+import ServiceTests.Exceptions.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 

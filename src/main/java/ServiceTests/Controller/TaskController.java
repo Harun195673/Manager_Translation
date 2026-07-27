@@ -1,8 +1,8 @@
-package management_workflow_api.Controller;
+package ServiceTests.Controller;
 
-import management_workflow_api.DTO.TaskDTO.RequestTaskDTO;
-import management_workflow_api.DTO.TaskDTO.RespondTaskDTO;
-import management_workflow_api.Service.TaskService;
+import ServiceTests.DTO.TaskDTO.RequestTaskDTO;
+import ServiceTests.DTO.TaskDTO.RespondTaskDTO;
+import ServiceTests.Service.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;

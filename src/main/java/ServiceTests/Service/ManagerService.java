@@ -1,15 +1,15 @@
-package management_workflow_api.Service;
+package ServiceTests.Service;
 
-import management_workflow_api.DTO.ManagerDTO.ManagerMapper;
-import management_workflow_api.DTO.ManagerDTO.RequestManagerDTO;
-import management_workflow_api.DTO.ManagerDTO.RespondManagerDTO;
-import management_workflow_api.DTO.WebUser.WebUserMapper;
-import management_workflow_api.Entity.Manager;
-import management_workflow_api.Entity.WebUser;
-import management_workflow_api.Exceptions.DuplicateResourceException;
-import management_workflow_api.Exceptions.InvalidOperationException;
-import management_workflow_api.Exceptions.ResourceNotFoundException;
-import management_workflow_api.Repository.ManagerRepository;
+import ServiceTests.DTO.ManagerDTO.ManagerMapper;
+import ServiceTests.DTO.ManagerDTO.RequestManagerDTO;
+import ServiceTests.DTO.ManagerDTO.RespondManagerDTO;
+import ServiceTests.DTO.WebUser.WebUserMapper;
+import ServiceTests.Entity.Manager;
+import ServiceTests.Entity.WebUser;
+import ServiceTests.Exceptions.DuplicateResourceException;
+import ServiceTests.Exceptions.InvalidOperationException;
+import ServiceTests.Exceptions.ResourceNotFoundException;
+import ServiceTests.Repository.ManagerRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
