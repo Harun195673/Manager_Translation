@@ -509,7 +509,7 @@ function getEmployeeLanguage(employeeName) {
             "mitarbeiter 1"
         )
     ) {
-        return "Englisch";
+        return "Türkisch";
     }
 
 
@@ -518,7 +518,7 @@ function getEmployeeLanguage(employeeName) {
             "mitarbeiter 2"
         )
     ) {
-        return "Türkisch";
+        return "Englisch";
     }
 
 
