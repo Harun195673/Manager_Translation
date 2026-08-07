@@ -1,0 +1,225 @@
+```html
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Aufgabenverwaltung</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+<body>
+
+<main>
+
+    <!-- =====================================================
+         Teamstruktur
+         ===================================================== -->
+
+    <section class="main_container">
+
+        <h1>Teamstruktur</h1>
+
+
+        <!-- Manager -->
+
+        <div class="manager_container">
+
+            <h2>Manager</h2>
+
+            <p>
+                Name: Matthias
+            </p>
+
+        </div>
+
+
+        <!-- Verbindung Manager → Arbeitsgruppe -->
+
+        <div class="hierarchy_arrow">
+            <span>leitet</span>
+        </div>
+
+
+        <!-- Arbeitsgruppe -->
+
+        <div class="workGroup_container">
+
+            <h2>Arbeitsgruppe</h2>
+
+            <p>
+                Name: Gruppe 1
+            </p>
+
+        </div>
+
+
+        <!-- Verbindung Arbeitsgruppe → Mitarbeitende -->
+
+        <div class="hierarchy_arrow">
+            <span>enthält</span>
+        </div>
+
+
+        <!-- Mitarbeitende -->
+
+        <div class="employee_container">
+
+            <h2>Mitarbeitende</h2>
+
+            <div class="employee_row">
+
+                <div class="employee">
+
+                    <p>
+                        Name: Mitarbeiter 1
+                    </p>
+
+                    <p>
+                        Sprache: Englisch
+                    </p>
+
+                </div>
+
+
+                <div class="employee">
+
+                    <p>
+                        Name: Mitarbeiter 2
+                    </p>
+
+                    <p>
+                        Sprache: Türkisch
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         Erklärung und Aufgabenformular
+         ===================================================== -->
+
+    <section class="task_section">
+
+
+        <!-- Erklärung -->
+
+        <div class="task_info">
+
+            <h2>So funktioniert es</h2>
+
+            <p>
+                Die oben dargestellten Daten werden für den Ablauf
+                verwendet. Der Manager gibt einen Titel und eine
+                Beschreibung für die bestehende Demo-Aufgabe ein.
+                Danach aktualisiert die Anwendung die Aufgabe,
+                übersetzt sie automatisch in die Sprachen der beiden
+                Mitarbeitenden und weist ihnen die passende Version zu.
+            </p>
+
+
+            <div class="task_flow">
+
+                <span>Speichern</span>
+
+                <span>→</span>
+
+                <span>Übersetzen</span>
+
+                <span>→</span>
+
+                <span>Zuweisen</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Aufgabenformular -->
+
+        <div class="task_container">
+
+            <h2>Aufgabe erstellen</h2>
+
+
+            <form id="task-form">
+
+                <div class="title_description">
+
+
+                    <!-- Titel -->
+
+                    <label for="task-title">
+                        Titel
+                    </label>
+
+                    <input
+                        id="task-title"
+                        name="title"
+                        type="text"
+                        placeholder="Titel der Aufgabe eingeben"
+                        required
+                    >
+
+
+                    <!-- Beschreibung -->
+
+                    <label for="task-description">
+                        Beschreibung
+                    </label>
+
+                    <textarea
+                        id="task-description"
+                        name="description"
+                        placeholder="Beschreibung der Aufgabe eingeben"
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <!-- Absenden -->
+
+                <button
+                    id="submit-button"
+                    type="submit"
+                >
+                    Aufgabe erstellen und zuweisen
+                </button>
+
+
+                <!-- Status- oder Fehlermeldung -->
+
+                <p id="task-message"></p>
+
+            </form>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
+```

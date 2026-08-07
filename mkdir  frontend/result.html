@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Ergebnis der Aufgabenverteilung</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<main>
+
+    <section class="result_section">
+
+        <header class="result_header">
+
+            <h1>Aufgabe erfolgreich zugewiesen</h1>
+
+            <p>
+                Die Aufgabe wurde aktualisiert, automatisch übersetzt
+                und den Mitarbeitenden in ihrer jeweiligen Sprache
+                zugewiesen.
+            </p>
+
+        </header>
+
+
+        <div class="result_grid">
+
+            <!-- Linke Spalte: fest eingetragene Mitarbeitende -->
+
+            <div class="result_column">
+
+                <h2>Mitarbeitende</h2>
+
+                <div class="result_employee">
+
+                    <h3>Mitarbeiter 1</h3>
+
+                    <p>
+                        <strong>Sprache:</strong>
+                        Englisch
+                    </p>
+
+                    <p class="assignment_status">
+                        Aufgabe zugewiesen
+                    </p>
+
+                </div>
+
+
+                <div class="result_employee">
+
+                    <h3>Mitarbeiter 2</h3>
+
+                    <p>
+                        <strong>Sprache:</strong>
+                        Türkisch
+                    </p>
+
+                    <p class="assignment_status">
+                        Aufgabe zugewiesen
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Rechte Spalte: wird mit JavaScript gefüllt -->
+
+            <div class="result_column">
+
+                <h2>Übersetzte Aufgaben</h2>
+
+                <div id="translated-task-results">
+
+                    <!--
+                        Die übersetzten Aufgaben werden
+                        hier mit JavaScript eingefügt.
+                    -->
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <p id="result-message"></p>
+
+
+        <a
+            class="back_button"
+            href="frontend.html"
+        >
+            Neue Aufgabe erstellen
+        </a>
+
+    </section>
+
+</main>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

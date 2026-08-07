@@ -1,0 +1,523 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: #f5f5f5;
+    color: #222222;
+    font-family: Arial, sans-serif;
+}
+
+main {
+    width: min(1000px, 92vw);
+    margin: 30px auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+}
+
+
+/* Teamstruktur */
+
+.main_container {
+    width: min(600px, 100%);
+    padding: 24px;
+
+    border: 2px solid black;
+    border-radius: 30px;
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.main_container > h1 {
+    margin: 0 0 14px;
+    font-size: 28px;
+}
+
+
+/* Manager und Arbeitsgruppe */
+
+.manager_container,
+.workGroup_container {
+    width: 70%;
+    padding: 12px 16px;
+
+    border: 2px solid black;
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.manager_container h2,
+.manager_container p,
+.workGroup_container h2,
+.workGroup_container p {
+    margin: 0;
+}
+
+.manager_container h2,
+.workGroup_container h2 {
+    margin-bottom: 6px;
+}
+
+
+/* Pfeile */
+
+.hierarchy_arrow {
+    position: relative;
+
+    width: 2px;
+    height: 42px;
+    margin: 3px 0;
+
+    background-color: black;
+
+    flex-shrink: 0;
+}
+
+.hierarchy_arrow::after {
+    content: "";
+
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+
+    width: 10px;
+    height: 10px;
+
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+
+    transform: translateX(-50%) rotate(45deg);
+}
+
+.hierarchy_arrow span {
+    position: absolute;
+    top: 12px;
+    left: 14px;
+
+    padding: 2px 5px;
+
+    background-color: white;
+
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+
+/* Mitarbeitende */
+
+.employee_container {
+    width: 70%;
+    padding: 14px;
+
+    border: 2px solid black;
+    border-radius: 20px;
+}
+
+.employee_container h2 {
+    margin: 0 0 12px;
+    text-align: center;
+}
+
+.employee_row {
+    display: flex;
+    gap: 12px;
+}
+
+.employee {
+    width: 50%;
+    padding: 10px;
+
+    border: 2px solid black;
+    border-radius: 14px;
+}
+
+.employee p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+
+/* Aufgabenbereich */
+
+.task_section {
+    width: 100%;
+
+    display: flex;
+    align-items: stretch;
+    gap: 24px;
+}
+
+.task_info,
+.task_container {
+    width: 50%;
+    padding: 26px;
+
+    border: 2px solid black;
+    border-radius: 30px;
+    background-color: white;
+}
+
+
+/* Erklärung */
+
+.task_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.task_info h2 {
+    margin: 0 0 14px;
+    text-align: center;
+}
+
+.task_info p {
+    margin: 0;
+
+    color: #444444;
+
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.task_flow {
+    margin-top: 22px;
+    padding: 14px;
+
+    border-radius: 10px;
+    background-color: #e8f5f6;
+    color: #116d73;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 9px;
+
+    font-weight: bold;
+}
+
+
+/* Aufgabenformular */
+
+.task_container h2 {
+    margin: 0 0 20px;
+    text-align: center;
+}
+
+.task_container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title_description {
+    width: 100%;
+    margin-bottom: 16px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.title_description label {
+    font-weight: bold;
+}
+
+.title_description input,
+.title_description textarea {
+    width: 100%;
+    padding: 10px;
+
+    border: 1px solid #777777;
+    border-radius: 8px;
+
+    font: inherit;
+}
+
+.title_description input:focus,
+.title_description textarea:focus {
+    border-color: #16858c;
+    outline: 2px solid rgba(22, 133, 140, 0.18);
+}
+
+.title_description textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+button {
+    padding: 10px 20px;
+
+    border: none;
+    border-radius: 8px;
+
+    background-color: #16858c;
+    color: white;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #116d73;
+}
+
+
+/* Tablet und Smartphone */
+
+@media (max-width: 750px) {
+    .task_section {
+        flex-direction: column;
+    }
+
+    .task_info,
+    .task_container {
+        width: 100%;
+    }
+}
+
+@media (max-width: 500px) {
+    main {
+        width: 94vw;
+        margin: 16px auto;
+    }
+
+    .main_container {
+        padding: 18px 12px;
+    }
+
+    .manager_container,
+    .workGroup_container,
+    .employee_container {
+        width: 92%;
+    }
+
+    .employee_row {
+        flex-direction: column;
+    }
+
+    .employee {
+        width: 100%;
+    }
+
+    .task_flow {
+        flex-wrap: wrap;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Ergebnisseite */
+
+.result_section {
+    width: 100%;
+    padding: 30px;
+
+    border: 2px solid black;
+    border-radius: 30px;
+    background-color: white;
+}
+
+.result_header {
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+.result_header h1 {
+    margin: 0 0 10px;
+    font-size: 28px;
+}
+
+.result_header p {
+    max-width: 650px;
+    margin: 0 auto;
+
+    color: #444444;
+    line-height: 1.6;
+}
+
+
+/* Zwei Ergebnisspalten */
+
+.result_grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 24px;
+}
+
+.result_column {
+    padding: 22px;
+
+    border: 2px solid black;
+    border-radius: 22px;
+    background-color: #fafafa;
+}
+
+.result_column > h2 {
+    margin: 0 0 20px;
+    text-align: center;
+}
+
+
+/* Mitarbeitende */
+
+.result_employee {
+    margin-bottom: 16px;
+    padding: 18px;
+
+    border: 1px solid #777777;
+    border-radius: 14px;
+    background-color: white;
+}
+
+.result_employee:last-child {
+    margin-bottom: 0;
+}
+
+.result_employee h3 {
+    margin: 0 0 10px;
+}
+
+.result_employee p {
+    margin: 6px 0;
+}
+
+.assignment_status {
+    display: inline-block;
+    padding: 5px 10px;
+
+    border-radius: 20px;
+    background-color: #e8f5f6;
+    color: #116d73;
+
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+/* Übersetzte Aufgaben */
+
+.translated_task {
+    position: relative;
+
+    margin-bottom: 16px;
+    padding: 20px;
+
+    border: 1px solid #777777;
+    border-radius: 14px;
+    background-color: white;
+}
+
+.translated_task:last-child {
+    margin-bottom: 0;
+}
+
+.translated_task h3 {
+    margin: 12px 0 10px;
+}
+
+.translated_task p {
+    margin: 0 0 16px;
+
+    color: #444444;
+    line-height: 1.5;
+}
+
+.task_language {
+    display: inline-block;
+    padding: 5px 10px;
+
+    border-radius: 20px;
+    background-color: #16858c;
+    color: white;
+
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.assigned_to {
+    padding-top: 12px;
+
+    border-top: 1px solid #dddddd;
+
+    color: #116d73;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+/* Zurück-Link */
+
+.back_button {
+    display: block;
+    width: fit-content;
+
+    margin: 26px auto 0;
+    padding: 11px 20px;
+
+    border-radius: 8px;
+
+    background-color: #16858c;
+    color: white;
+
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.back_button:hover {
+    background-color: #116d73;
+}
+
+
+/* Responsive Ergebnisseite */
+
+@media (max-width: 750px) {
+    .result_grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 500px) {
+    .result_section {
+        padding: 20px 14px;
+    }
+
+    .result_column {
+        padding: 16px;
+    }
+}
