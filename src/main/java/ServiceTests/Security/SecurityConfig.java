@@ -8,6 +8,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 public class SecurityConfig {
@@ -17,10 +22,17 @@ public class SecurityConfig {
             throws Exception {
 
         http
+                /*
+                 * Enables the CorsConfigurationSource bean below.
+                 */
+                .cors(Customizer.withDefaults())
+
                 .csrf(csrf -> csrf.disable())
 
                 // Needed for H2 console
-                .headers(headers -> headers.frameOptions(frame -> frame.disable()))
+                .headers(headers ->
+                        headers.frameOptions(frame -> frame.disable())
+                )
 
                 .authorizeHttpRequests(auth -> auth
 
@@ -42,32 +54,48 @@ public class SecurityConfig {
                         ).hasRole("MANAGER")
 
                         // Employees and managers can read employee data
-                        .requestMatchers(HttpMethod.GET, "/employee/**")
-                        .hasAnyRole("MANAGER", "EMPLOYEE")
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/employee/**"
+                        ).hasAnyRole("MANAGER", "EMPLOYEE")
 
                         // Only managers can create, update, or delete employees
-                        .requestMatchers(HttpMethod.POST, "/employee/**")
-                        .hasRole("MANAGER")
+                        .requestMatchers(
+                                HttpMethod.POST,
+                                "/employee/**"
+                        ).hasRole("MANAGER")
 
-                        .requestMatchers(HttpMethod.PUT, "/employee/**")
-                        .hasRole("MANAGER")
+                        .requestMatchers(
+                                HttpMethod.PUT,
+                                "/employee/**"
+                        ).hasRole("MANAGER")
 
-                        .requestMatchers(HttpMethod.DELETE, "/employee/**")
-                        .hasRole("MANAGER")
+                        .requestMatchers(
+                                HttpMethod.DELETE,
+                                "/employee/**"
+                        ).hasRole("MANAGER")
 
                         // Employees and managers can read tasks
-                        .requestMatchers(HttpMethod.GET, "/tasks/**")
-                        .hasAnyRole("MANAGER", "EMPLOYEE")
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/tasks/**"
+                        ).hasAnyRole("MANAGER", "EMPLOYEE")
 
                         // Only managers can create, update, or delete tasks
-                        .requestMatchers(HttpMethod.POST, "/tasks/**")
-                        .hasRole("MANAGER")
+                        .requestMatchers(
+                                HttpMethod.POST,
+                                "/tasks/**"
+                        ).hasRole("MANAGER")
 
-                        .requestMatchers(HttpMethod.PUT, "/tasks/**")
-                        .hasRole("MANAGER")
+                        .requestMatchers(
+                                HttpMethod.PUT,
+                                "/tasks/**"
+                        ).hasRole("MANAGER")
 
-                        .requestMatchers(HttpMethod.DELETE, "/tasks/**")
-                        .hasRole("MANAGER")
+                        .requestMatchers(
+                                HttpMethod.DELETE,
+                                "/tasks/**"
+                        ).hasRole("MANAGER")
 
                         // Admin-only endpoints
                         .requestMatchers("/webUsers/**")
@@ -81,6 +109,47 @@ public class SecurityConfig {
 
         return http.build();
     }
+
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+
+        CorsConfiguration configuration =
+                new CorsConfiguration();
+
+        /*
+         * Your frontend currently runs through Live Server:
+         * http://127.0.0.1:5500
+         */
+        configuration.setAllowedOrigins(List.of(
+                "http://127.0.0.1:5500",
+                "http://localhost:5500"
+        ));
+
+        configuration.setAllowedMethods(List.of(
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTIONS"
+        ));
+
+        configuration.setAllowedHeaders(List.of(
+                "Authorization",
+                "Content-Type"
+        ));
+
+        UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
+
+        source.registerCorsConfiguration(
+                "/**",
+                configuration
+        );
+
+        return source;
+    }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

@@ -1,76 +1,135 @@
 package ServiceTests.Service;
 
+import ServiceTests.Entity.Employee;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ServiceTests.Entity.Employee;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import java.net.URI;
 
 @Service
 public class TranslationService {
 
-    private final RestTemplate restTemplate = new RestTemplate();
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private static final String TRANSLATION_URL =
+            "https://api.mymemory.translated.net/get";
 
-    public String translateText(String text, Employee.Language sourceLang, Employee.Language targetLang) {
+    private final RestTemplate restTemplate;
+    private final ObjectMapper objectMapper;
+
+    public TranslationService() {
+        this.restTemplate = new RestTemplate();
+        this.objectMapper = new ObjectMapper();
+    }
+
+    public String translateText(
+            String text,
+            Employee.Language sourceLang,
+            Employee.Language targetLang
+    ) {
+
+        if (text == null || text.isBlank()) {
+            throw new IllegalArgumentException(
+                    "Text to translate must not be empty"
+            );
+        }
+
+        if (sourceLang == null || targetLang == null) {
+            throw new IllegalArgumentException(
+                    "Source and target language are required"
+            );
+        }
+
+
+        if (sourceLang == targetLang) {
+            return text;
+        }
 
         try {
-            String sourceCode;
-            String targetCode;
+            String sourceCode =
+                    getLanguageCode(sourceLang);
 
-            if (sourceLang == Employee.Language.GERMAN) {
-                sourceCode = "de";
-            } else if (sourceLang == Employee.Language.ENGLISH) {
-                sourceCode = "en";
-            } else if (sourceLang == Employee.Language.TURKISH) {
-                sourceCode = "tr";
-            } else if (sourceLang == Employee.Language.ARABIC) {
-                sourceCode = "ar";
-            } else if (sourceLang == Employee.Language.POLISH) {
-                sourceCode = "pl";
-            } else {
-                throw new RuntimeException("Unsupported source language: " + sourceLang);
+            String targetCode =
+                    getLanguageCode(targetLang);
+
+           
+            URI uri = UriComponentsBuilder
+                    .fromUriString(TRANSLATION_URL)
+                    .queryParam("q", text)
+                    .queryParam(
+                            "langpair",
+                            sourceCode + "|" + targetCode
+                    )
+                    .build()
+                    .encode()
+                    .toUri();
+
+            ResponseEntity<String> response =
+                    restTemplate.getForEntity(
+                            uri,
+                            String.class
+                    );
+
+            if (!response.getStatusCode().is2xxSuccessful()) {
+                throw new RuntimeException(
+                        "Translation request failed with status: "
+                                + response.getStatusCode()
+                );
             }
 
-            if (targetLang == Employee.Language.GERMAN) {
-                targetCode = "de";
-            } else if (targetLang == Employee.Language.ENGLISH) {
-                targetCode = "en";
-            } else if (targetLang == Employee.Language.TURKISH) {
-                targetCode = "tr";
-            } else if (targetLang == Employee.Language.ARABIC) {
-                targetCode = "ar";
-            } else if (targetLang == Employee.Language.POLISH) {
-                targetCode = "pl";
-            } else {
-                throw new RuntimeException("Unsupported target language: " + targetLang);
+            if (response.getBody() == null) {
+                throw new RuntimeException(
+                        "Translation API returned an empty response"
+                );
             }
 
-            /// Encode text to be URL-safe
-            String encodedText = URLEncoder.encode(text, StandardCharsets.UTF_8);
+            JsonNode root =
+                    objectMapper.readTree(
+                            response.getBody()
+                    );
 
-            /// Build URL
-            String url = String.format(
-                    "https://api.mymemory.translated.net/get?q=%s&langpair=%s|%s",
-                    encodedText, sourceCode, targetCode
+            String translatedText = root
+                    .path("responseData")
+                    .path("translatedText")
+                    .asText();
+
+            if (
+                    translatedText == null ||
+                            translatedText.isBlank()
+            ) {
+                throw new RuntimeException(
+                        "Translation API returned no translated text"
+                );
+            }
+
+            return translatedText;
+
+        } catch (Exception exception) {
+            throw new RuntimeException(
+                    "Failed to translate text from "
+                            + sourceLang
+                            + " to "
+                            + targetLang,
+                    exception
             );
-
-            /// Make GET request
-            ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-
-            if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
-                JsonNode root = objectMapper.readTree(response.getBody());
-                return root.path("responseData").path("translatedText").asText();
-            } else {
-                throw new RuntimeException("Translation request failed: " + response.getBody());
-            }
-
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to translate text", e);
         }
+    }
+
+    private String getLanguageCode(
+            Employee.Language language
+    ) {
+
+        return switch (language) {
+            case GERMAN -> "de";
+            case ENGLISH -> "en";
+            case TURKISH -> "tr";
+            case ARABIC -> "ar";
+            case POLISH -> "pl";
+            case RUSSIAN -> "ru";
+            case SPANISH -> "es";
+            case FRENCH -> "fr";
+        };
     }
 }
