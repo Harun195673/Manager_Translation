@@ -500,14 +500,53 @@ function insertTranslatedTaskCard(
 function getEmployeeLanguage(employeeName) {
 
     const normalizedName =
-        String(employeeName).toLowerCase();
+        String(employeeName)
+            .trim()
+            .toLowerCase();
 
-    if (normalizedName.includes("mitarbeiter 1")) {
-        return "Türkisch";
-    }
+    const employeeCards =
+        document.querySelectorAll(
+            ".result_employee"
+        );
 
-    if (normalizedName.includes("mitarbeiter 2")) {
-        return "Englisch";
+    for (const card of employeeCards) {
+
+        const nameElement =
+            card.querySelector("h3");
+
+        if (!nameElement) {
+            continue;
+        }
+
+        const name =
+            nameElement.textContent
+                .trim()
+                .toLowerCase();
+
+        if (name === normalizedName) {
+
+            const paragraphs =
+                card.querySelectorAll("p");
+
+            for (const paragraph of paragraphs) {
+
+                const strong =
+                    paragraph.querySelector(
+                        "strong"
+                    );
+
+                if (
+                    strong &&
+                    strong.textContent
+                        .includes("Sprache")
+                ) {
+
+                    return paragraph.textContent
+                        .replace("Sprache:", "")
+                        .trim();
+                }
+            }
+        }
     }
 
     return "Unbekannt";
