@@ -500,27 +500,15 @@ function insertTranslatedTaskCard(
 function getEmployeeLanguage(employeeName) {
 
     const normalizedName =
-        String(employeeName)
-            .toLowerCase();
+        String(employeeName).toLowerCase();
 
-
-    if (
-        normalizedName.includes(
-            "mitarbeiter 1"
-        )
-    ) {
-        return "Englisch";
-    }
-
-
-    if (
-        normalizedName.includes(
-            "mitarbeiter 2"
-        )
-    ) {
+    if (normalizedName.includes("mitarbeiter 1")) {
         return "Türkisch";
     }
 
+    if (normalizedName.includes("mitarbeiter 2")) {
+        return "Englisch";
+    }
 
     return "Unbekannt";
 }
