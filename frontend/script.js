@@ -116,7 +116,7 @@ async function handleTaskForm(event) {
         "Aufgabe wird verarbeitet...";
 
     taskMessage.textContent =
-        "Aufgabe wird gespeichert...";
+        "Aufgabe wird verarbeitet. Der Server benötigt beim ersten Start möglicherweise einige Sekunden.";
 
 
     try {
