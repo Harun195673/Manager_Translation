@@ -6,10 +6,25 @@ A Spring Boot REST API for managing multilingual workgroups, tasks, task assignm
 
 ## Live Demo
 
-**Swagger UI:**
-[Open API Documentation](https://manager-translation.onrender.com/swagger-ui/index.html#/recruiter-test-controller/testWorkFlow)
+## Try the Project
 
-The recruiter demo endpoint starts the main workflow automatically and does not require manual input.
+Want to see the application in action? You can explore the workflow in three ways:
+
+**🌐 Live Demo**
+[Open the deployed application](https://manager-translation-frontend.onrender.com/index.html)
+Interact with the frontend and see the workflow from a user's perspective.
+
+**▶ 20-Second Video Demo**
+[Watch the demo on YouTube](https://www.youtube.com/watch?v=EEF5XDqGH98)
+A quick overview of the main workflow from start to finish.
+
+**🧪 Swagger UI / API Demo**
+[Open the API documentation](https://manager-translation.onrender.com/swagger-ui/index.html#/recruiter-test-controller/testWorkFlow)
+The recruiter demo endpoint automatically executes the core workflow, so no manual setup or input is required.
+
+
+
+
 
 ---
 
