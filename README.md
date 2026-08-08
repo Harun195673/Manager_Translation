@@ -11,6 +11,15 @@ A Spring Boot REST API for managing multilingual workgroups, tasks, task assignm
 
 The recruiter demo endpoint starts the main workflow automatically and does not require manual input.
 
+**▶ 20s Video Demo:**
+[Youtube link](https://www.youtube.com/watch?v=EEF5XDqGH98)
+
+**Live Demo:**
+[Link to deployed website](https://manager-translation-frontend.onrender.com/index.html)
+
+
+
+
 ---
 
 ## Overview
